@@ -4,4 +4,5 @@ Based off of (leap-motion-processing example 1)[https://github.com/voidplus/leap
 
 ### Requirements
 
-  1) Leap Motion
+  1. Leap Motion
+  2. (leap-motion-processing)[https://github.com/voidplus/leap-motion-processing]
