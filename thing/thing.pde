@@ -1,7 +1,6 @@
 import de.voidplus.leapmotion.*;
 
 LeapMotion leap;
-Mouse mouse;
 
 void setup() {
   size(800, 500, P3D);
@@ -11,7 +10,6 @@ void setup() {
   // ...
 
   leap = new LeapMotion(this); //<>//
-  mouse = new Mouse(this);
 }
 
 void draw() {
@@ -100,7 +98,7 @@ void draw() {
   // }
 
   // MOUSE
-  mouse.draw();
+  ellipse(mouseX, mouseY, 5.0, 5.0);
 }
 
 void leapOnInit() {
