@@ -83,11 +83,15 @@ void draw() {
     float   sphere_radius    = hand.getSphereRadius();
 
     float angle = -1 * hand_pitch * 3.14 / 180.0;
+<<<<<<< HEAD
 
       if(hand_position.z>20)
       {
         dHand.add(new Boundary(hand_position.x, hand_position.y,100,10,angle));
       }
+=======
+    dHand.move(hand_position.x, hand_position.y, angle);
+>>>>>>> 31deae89cca7d1aedf24da0daf92695892a07a05
 
     // FINGERS
     for (Finger finger : hand.getFingers()) {
