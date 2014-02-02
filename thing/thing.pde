@@ -1,26 +1,70 @@
+import pbox2d.*;
+import org.jbox2d.collision.shapes.*;
+import org.jbox2d.common.*;
+import org.jbox2d.dynamics.*;
+
 import de.voidplus.leapmotion.*;
 
+
 LeapMotion leap;
+PBox2D box2d;
+Boundary dHand;
+
+ArrayList<Box> boxes;
 
 void setup() {
+  // Setup Processing
   size(800, 500, P3D);
   background(255);
-  noStroke(); 
+  noStroke();
+  smooth(); 
   fill(50);
-  // ...
 
+  // Setup Box2d
+  box2d = new PBox2D(this);
+  box2d.createWorld();
+  box2d.setGravity(0, -10);
+  boxes = new ArrayList<Box>();
+
+  // Setup Leap
+  dHand = new Boundary(300,300,100,10);
   leap = new LeapMotion(this); //<>//
 }
 
 void draw() {
   background(255);
+
+  // step physics world
+  box2d.step();
+
   // ...
   int fps = leap.getFrameRate();
+
+  // Spawn boxes
+  if (random(1) < 0.2) {
+    Box p = new Box(width/2, 30);
+    boxes.add(p);
+  }
+
+  // Display all boxes
+  for (Box b : boxes) {
+    b.display();
+  }
+
+  // Delete boxes that leave the screen
+  for (int i = boxes.size()-1; i >= 0; i--) {
+    Box b = boxes.get(i);
+    if (b.done()) {
+      boxes.remove(i);
+    }
+  }
+  
+  // Display hands
+  dHand.display();
 
   // HANDS
   for (Hand hand : leap.getHands()) {
 
-    hand.draw();
     int     hand_id          = hand.getId();
     PVector hand_position    = hand.getPosition();
     PVector hand_stabilized  = hand.getStabilizedPosition();
@@ -32,6 +76,8 @@ void draw() {
     float   hand_time        = hand.getTimeVisible();
     PVector sphere_position  = hand.getSpherePosition();
     float   sphere_radius    = hand.getSphereRadius();
+
+    dHand.move(hand_position.x, hand_position.y);
 
     // FINGERS
     for (Finger finger : hand.getFingers()) {
