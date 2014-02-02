@@ -5,11 +5,9 @@ import org.jbox2d.dynamics.*;
 
 import de.voidplus.leapmotion.*;
 
-
+float hand_pitch_Noleap = 0;
 LeapMotion leap;
 PBox2D box2d;
-float hand_pitch_Noleap = 0;
-boolean leap_connected = false;
 ArrayList<Boundary> dHand;
 
 ArrayList<Box> boxes;
@@ -34,15 +32,6 @@ void setup() {
 }
 
 void draw() {
-  if(leap_connected){
-    HaveLeap();
-  }
-  else{
-    NoLeap();
-  }
-}
-
-void HaveLeap(){
   background(255);
 
   // step physics world
@@ -78,6 +67,19 @@ void HaveLeap(){
     dHand.remove(i);
   }
 
+
+  //NO LEAP MODE
+  if(keyPressed){
+    if(key == 'a' || key == 'A'){
+      hand_pitch_Noleap = hand_pitch_Noleap + 1;
+    }
+    if(key == 'd' || key == 'D'){
+      hand_pitch_Noleap = hand_pitch_Noleap - 1;
+    }
+  }
+  float angle = -1 * hand_pitch_Noleap * 3.14 / 180.0;
+  dHand.add(new Boundary(mouseX, mouseY,100,10,angle));
+  
   // HANDS
   for (Hand hand : leap.getHands()) {
 
@@ -167,62 +169,18 @@ void HaveLeap(){
   ellipse(mouseX, mouseY, 5.0, 5.0);
 }
 
-void NoLeap()
-{
-  background(255);
-
-  // step physics world
-  box2d.step();
-
-  // ...
-  int fps = 60;
-  // Spawn boxes
-  if (random(1) < 0.2) {
-    Box p = new Box(width/2, 30);
-    boxes.add(p);
-  }
-
-  // Display all boxes
-  for (Box b : boxes) {
-    b.display();
-  }
-
-  // Delete boxes that leave the screen
-  for (int i = boxes.size()-1; i >= 0; i--) {
-    Box b = boxes.get(i);
-    if (b.done()) {
-      boxes.remove(i);
-    }
-  }
-  
-  // Display hands
-  dHand.display();
-
-  if(keyPressed){
-    if(key == 'a' || key == 'A'){
-      hand_pitch_Noleap = hand_pitch_Noleap + 1;
-    }
-    if(key == 'd' || key == 'D'){
-      hand_pitch_Noleap = hand_pitch_Noleap - 1;
-    }
-  }  
-  
-  float angle = -1 * hand_pitch_Noleap * 3.14 / 180.0;
-  dHand.move(mouseX, mouseY, angle);
-}
-
 void leapOnInit() {
   // println("Leap Motion Init");
 }
 void leapOnConnect() {
-    leap_connected = true;
+  // println("Leap Motion Connect");
 }
 void leapOnFrame() {
   // println("Leap Motion Frame");
 }
 void leapOnDisconnect() {
-    leap_connected = false;
+  // println("Leap Motion Disconnect");
 }
 void leapOnExit() {
-    leap_connected = false;
+  // println("Leap Motion Exit");
 }
