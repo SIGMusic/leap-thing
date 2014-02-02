@@ -77,7 +77,8 @@ void draw() {
     PVector sphere_position  = hand.getSpherePosition();
     float   sphere_radius    = hand.getSphereRadius();
 
-    dHand.move(hand_position.x, hand_position.y);
+    float angle = -1 * hand_pitch * 3.14 / 180.0;
+    dHand.move(hand_position.x, hand_position.y, angle);
 
     // FINGERS
     for (Finger finger : hand.getFingers()) {

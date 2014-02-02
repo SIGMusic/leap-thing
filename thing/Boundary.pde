@@ -51,8 +51,11 @@ class Boundary {
     stroke(0);
     rectMode(CENTER);
     
-    // TODO Deal with rotation
-    rect(pos.x,pos.y,w,h);
+    pushMatrix();
+    translate(pos.x, pos.y);
+    rotate(-1*this.b.getAngle());
+    rect(0,0,w,h);
+    popMatrix();
   }
 
   void move(float x_, float y_, float angle){
