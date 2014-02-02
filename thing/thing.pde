@@ -77,8 +77,8 @@ void draw() {
       hand_pitch_Noleap = hand_pitch_Noleap - 1;
     }
   }
-  float angle = -1 * hand_pitch_Noleap * 3.14 / 180.0;
-  dHand.add(new Boundary(mouseX, mouseY,100,10,angle));
+  float angle2 = -1 * hand_pitch_Noleap * 3.14 / 180.0;
+  dHand.add(new Boundary(mouseX, mouseY,100,10,angle2));
   
   // HANDS
   for (Hand hand : leap.getHands()) {
