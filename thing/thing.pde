@@ -8,7 +8,7 @@ import de.voidplus.leapmotion.*;
 
 LeapMotion leap;
 PBox2D box2d;
-Boundary dHand;
+ArrayList<Boundary> dHand;
 
 ArrayList<Box> boxes;
 
@@ -27,7 +27,7 @@ void setup() {
   boxes = new ArrayList<Box>();
 
   // Setup Leap
-  dHand = new Boundary(300,300,100,10);
+  dHand = new ArrayList<Boundary>();
   leap = new LeapMotion(this); //<>//
 }
 
@@ -60,7 +60,12 @@ void draw() {
   }
   
   // Display hands
-  dHand.display();
+  for (int i = 0; i<dHand.size(); i++)
+  {
+    dHand.get(i).display();
+    box2d.destroyBody(dHand.get(i).b);
+    dHand.remove(i);
+  }
 
   // HANDS
   for (Hand hand : leap.getHands()) {
@@ -77,7 +82,12 @@ void draw() {
     PVector sphere_position  = hand.getSpherePosition();
     float   sphere_radius    = hand.getSphereRadius();
 
-    dHand.move(hand_position.x, hand_position.y);
+    float angle = -1 * hand_pitch * 3.14 / 180.0;
+
+      if(hand_position.z>20)
+      {
+        dHand.add(new Boundary(hand_position.x, hand_position.y,100,10,angle));
+      }
 
     // FINGERS
     for (Finger finger : hand.getFingers()) {
@@ -162,4 +172,3 @@ void leapOnDisconnect() {
 void leapOnExit() {
   // println("Leap Motion Exit");
 }
-

@@ -41,8 +41,12 @@ class Boundary {
     b.createFixture(sd,1);
   }
 
+  Boundary(float x_,float y_, float w_, float h_, float a_) {
+    this(x_, y_, w_, h_);
+    this.move(x_, y_, a_);
+  }
   // Draw the boundary, if it were at an angle we'd have to do something fancier
-  void display() {
+ void display() {
     Vec2 pos = box2d.getBodyPixelCoord(b);
     // Get its angle of rotation
     float a = b.getAngle();
@@ -51,8 +55,11 @@ class Boundary {
     stroke(0);
     rectMode(CENTER);
     
-    // TODO Deal with rotation
-    rect(pos.x,pos.y,w,h);
+    pushMatrix();
+    translate(pos.x, pos.y);
+    rotate(-1*this.b.getAngle());
+    rect(0,0,w,h);
+    popMatrix();
   }
 
   void move(float x_, float y_, float angle){
