@@ -9,5 +9,5 @@ Based off of [leap-motion-processing example 1](https://github.com/voidplus/leap
   0. [Leap Motion Controller](http://leapmotion.com/) (hardware)
   1. [Leap Motion Software](https://www.leapmotion.com/setup)
   2. [Processing](http://processing.org/)
-    * [leap-motion-processing](https://github.com/voidplus/leap-motion-processing)
+    * [Leap Motion for Processing](https://github.com/voidplus/leap-motion-processing)
     * [PBox2D](https://github.com/shiffman/PBox2D)
