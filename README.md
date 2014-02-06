@@ -7,7 +7,7 @@ Based off of [leap-motion-processing example 1](https://github.com/voidplus/leap
 [How to install Processing libraries](http://wiki.processing.org/w/How_to_Install_a_Contributed_Library#Install_with_the_.22Add_Library....22_tool)
 
   0. [Leap Motion Controller](http://leapmotion.com/) (hardware)
-  1. [Leap Motion Software](https://developer.leapmotion.com/downloads)
+  1. [Leap Motion Software](https://www.leapmotion.com/setup)
   2. [Processing](http://processing.org/)
     * [leap-motion-processing](https://github.com/voidplus/leap-motion-processing)
     * [PBox2D](https://github.com/shiffman/PBox2D)
