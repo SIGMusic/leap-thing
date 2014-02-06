@@ -10,6 +10,7 @@ class Box {
   Body body;
   float w;
   float h;
+  int c = #E56EFA;
 
   // Constructor
   Box(float x, float y) {
@@ -47,7 +48,7 @@ class Box {
     pushMatrix();
     translate(pos.x, pos.y);
     rotate(-a);
-    fill(175);
+    fill(this.c);
     stroke(0);
     rect(0, 0, w, h);
     popMatrix();

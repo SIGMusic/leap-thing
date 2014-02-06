@@ -42,7 +42,7 @@ void draw() {
 
   // Spawn boxes
   if (random(1) < 0.2) {
-    Box p = new Box(width/2, 30);
+    Box p = new Box(width/2, -30);
     boxes.add(p);
   }
 
