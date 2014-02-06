@@ -10,7 +10,7 @@ class Box {
   Body body;
   float w;
   float h;
-  int r,g,b;
+  int c;
 
   // Constructor
   Box(float x, float y) {
@@ -18,9 +18,7 @@ class Box {
     h = random(5, 30);
     // Add the box to the box2d world
     makeBody(new Vec2(x, y), w, h);
-    r = (int) random(0,255);
-    g = (int) random(0,255);
-    b = (int) random(0,255);
+    c = color(random(0,255), random(0,255), random(0,255));
   }
 
   // This function removes the particle from the box2d world
@@ -51,7 +49,7 @@ class Box {
     pushMatrix();
     translate(pos.x, pos.y);
     rotate(-a);
-    fill(this.r, this.g, this.b);
+    fill(this.c);
     stroke(0);
     rect(0, 0, w, h);
     popMatrix();
