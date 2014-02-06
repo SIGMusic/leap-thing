@@ -8,8 +8,6 @@
 class Boundary {
 
   // A boundary is a simple rectangle with x,y,width,and height
-  float x;
-  float y;
   float w;
   float h;
   
@@ -17,8 +15,6 @@ class Boundary {
   Body b;
 
   Boundary(float x_,float y_, float w_, float h_) {
-    x = x_;
-    y = y_;
     w = w_;
     h = h_;
 
@@ -34,7 +30,7 @@ class Boundary {
     // Create the body
     BodyDef bd = new BodyDef();
     bd.type = BodyType.KINEMATIC;
-    bd.position.set(box2d.coordPixelsToWorld(x,y));
+    bd.position.set(box2d.coordPixelsToWorld(x_,y_));
     b = box2d.createBody(bd);
     
     // Attached the shape to the body using a Fixture
@@ -48,10 +44,8 @@ class Boundary {
   // Draw the boundary, if it were at an angle we'd have to do something fancier
  void display() {
     Vec2 pos = box2d.getBodyPixelCoord(b);
-    // Get its angle of rotation
-    float a = b.getAngle();
     
-    fill(0);
+    fill(this.getColor());
     stroke(0);
     rectMode(CENTER);
     
@@ -60,6 +54,19 @@ class Boundary {
     rotate(-1*this.b.getAngle());
     rect(0,0,w,h);
     popMatrix();
+  }
+  
+  // return the color of the boundry
+  int getColor(){
+    Vec2 pos = box2d.getBodyPixelCoord(b);
+    
+    int r = (int) ((pos.x / width) * 255);
+    int b = (int) ((pos.y / height) * 255);
+    int g = (int) ((abs(this.b.getAngle()) / 3.14) * 255) % 255; // just accept it
+    
+    System.out.println(this.b.getAngle());
+    
+    return color(r,g,b);
   }
 
   void move(float x_, float y_, float angle){
