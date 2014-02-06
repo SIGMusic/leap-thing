@@ -64,8 +64,6 @@ class Boundary {
     int b = (int) ((pos.y / height) * 255);
     int g = (int) ((abs(this.b.getAngle()) / 3.14) * 255) % 255; // just accept it
     
-    System.out.println(this.b.getAngle());
-    
     return color(r,g,b);
   }
 
