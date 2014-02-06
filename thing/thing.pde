@@ -15,10 +15,9 @@ ArrayList<Box> boxes;
 void setup() {
   // Setup Processing
   size(800, 500, P3D);
-  background(255);
-  noStroke();
+  background(360, 0, 100);
   smooth(); 
-  fill(50);
+  colorMode(HSB, 360, 100, 100);
 
   // Setup Box2d
   box2d = new PBox2D(this);
@@ -32,7 +31,7 @@ void setup() {
 }
 
 void draw() {
-  background(255);
+  background(360, 0, 100);
 
   // step physics world
   box2d.step();
@@ -41,8 +40,8 @@ void draw() {
   int fps = leap.getFrameRate();
 
   // Spawn boxes
-  if (random(1) < 0.2) {
-    Box p = new Box(width/2, -30);
+  if (random(1) < 0.2 && dHand.size() > 0) {
+    Box p = new Box(width/2, -30, dHand.get(0).getHue());
     boxes.add(p);
   }
 

@@ -58,13 +58,19 @@ class Boundary {
   
   // return the color of the boundry
   int getColor(){
+    
+    int h = this.getHue();
+    int s = 100;
+    int b = 100;
+        
+    return color(h,s,b);
+  }
+  
+  int getHue(){
     Vec2 pos = box2d.getBodyPixelCoord(b);
     
-    int r = (int) ((pos.x / width) * 255);
-    int b = (int) ((pos.y / height) * 255);
-    int g = (int) ((abs(this.b.getAngle()) / 3.14) * 255) % 255; // just accept it
-    
-    return color(r,g,b);
+    float distance = sqrt(pow(pos.x - width / 2.0, 2) + pow(pos.y - height / 2.0, 2));
+    return (int) ((distance / (width / 2.0)) * 360);
   }
 
   void move(float x_, float y_, float angle){

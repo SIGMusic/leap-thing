@@ -13,12 +13,13 @@ class Box {
   int c;
 
   // Constructor
-  Box(float x, float y) {
+  Box(float x, float y, int boundaryHue) {
     w = random(5, 30);
     h = random(5, 30);
     // Add the box to the box2d world
     makeBody(new Vec2(x, y), w, h);
-    c = color(random(0,255), random(0,255), random(0,255));
+    
+    c = color((boundaryHue + 180) % 360, 100, 100);
   }
 
   // This function removes the particle from the box2d world
