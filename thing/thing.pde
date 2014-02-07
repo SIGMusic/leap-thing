@@ -22,7 +22,7 @@ void setup() {
   // Setup Box2d
   box2d = new PBox2D(this);
   box2d.createWorld();
-  box2d.setGravity(0, -10);
+  box2d.setGravity(0, 0);
   boxes = new ArrayList<Box>();
 
   // Setup Leap
@@ -36,8 +36,10 @@ void draw() {
   // step physics world
   box2d.step();
 
-  // ...
-  int fps = leap.getFrameRate();
+  // give all of the existing boxes gravity
+  for (Box b : boxes){
+     b.applyGravity(); 
+  }
 
   // Spawn boxes
   if (random(1) < 0.2 && dHand.size() > 0) {

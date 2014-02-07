@@ -56,6 +56,12 @@ class Box {
     popMatrix();
   }
 
+  void applyGravity() {
+     // Give it gravity
+    float f = body.getMass() * -9.81;
+    body.applyForce(new Vec2(0, f), body.getPosition()); 
+  }
+
   // This function adds the rectangle to the box2d world
   void makeBody(Vec2 center, float w_, float h_) {
 
