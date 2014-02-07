@@ -45,9 +45,9 @@ void draw() {
   if (random(1) < 0.2 && dHand.size() > 0) {
     Box p;
     if (random(1) < 0.5){
-      p = new Box(width/2, -30, dHand.get(0).getHue(), SpawnLocation.TOP);
+      p = new Box(width/2 + random(-100,100), -10, dHand.get(0).getHue(), SpawnLocation.TOP);
     } else {
-      p = new Box(width/2, height+30, dHand.get(0).getHue(), SpawnLocation.BOTTOM);
+      p = new Box(width/2 + random(-100,100), height+10, dHand.get(0).getHue(), SpawnLocation.BOTTOM);
     }
     
     boxes.add(p);

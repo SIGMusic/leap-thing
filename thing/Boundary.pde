@@ -69,7 +69,8 @@ class Boundary {
     Vec2 pos = box2d.getBodyPixelCoord(b);
     
     float distance = sqrt(pow(pos.x - width / 2.0, 2) + pow(pos.y - height / 2.0, 2));
-    return (int) ((distance / (width / 2.0)) * 360);
+    int hue = (int) ((distance / width) * 360 * 3);
+    return hue % 360;
   }
 
   void move(float x_, float y_, float angle){
