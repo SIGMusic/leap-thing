@@ -3,23 +3,35 @@
 // Spring 2010
 // PBox2D example
 
+
+
 // A rectangular box
 class Box {
-
+  
   // We need to keep track of a Body and a width and height
   Body body;
   float w;
   float h;
   int c;
+  SpawnLocation l;
 
   // Constructor
-  Box(float x, float y, int boundaryHue) {
+  Box(float x, float y, int boundaryHue, SpawnLocation location) {
     w = random(5, 30);
     h = random(5, 30);
+    l = location;
     // Add the box to the box2d world
     makeBody(new Vec2(x, y), w, h);
     
-    c = color((boundaryHue + 180) % 360, 100, 100);
+    int hue = (boundaryHue + 180);
+    switch (location){
+       case TOP:
+          hue += 20;
+       case BOTTOM:
+          hue -= 20;
+    }
+    hue = hue % 360;
+    c = color(hue, 100, 100);
   }
 
   // This function removes the particle from the box2d world
@@ -59,6 +71,9 @@ class Box {
   void applyGravity() {
      // Give it gravity
     float f = body.getMass() * -9.81;
+    if (this.l == SpawnLocation.BOTTOM){
+       f = f * -1; 
+    }
     body.applyForce(new Vec2(0, f), body.getPosition()); 
   }
 
