@@ -13,6 +13,7 @@ class Box {
   float w;
   float h;
   int c;
+  int myHue;
   SpawnLocation l;
 
   // Constructor
@@ -105,6 +106,10 @@ class Box {
     // Give it some initial random velocity
     body.setLinearVelocity(new Vec2(random(-5, 5), random(2, 5)));
     body.setAngularVelocity(random(-5, 5));
+  }
+  
+  int getHue(){
+     return myHue; 
   }
 }
 

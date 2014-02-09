@@ -31,9 +31,24 @@ void setup() {
   leap = new LeapMotion(this); //<>//
 }
 
-void draw() {
-  background(360, 0, 100);
+//changes background based on the avg hue value of all the boxes
+void setBackground() {  
+  int total_hue = 0;
+  int avg_hue = 0;
+  if(boxes.size() > 0){
+    for(int i = 0; i < boxes.size(); i++){
+        total_hue += boxes.get(i).getHue();
+    }
+    avg_hue = total_hue/boxes.size();
+  }
+  //System.out.println(((avg_hue)%360));
+  background((avg_hue)%360, 100, 60);
+}
 
+void draw() {
+  //background(360, 0, 100);
+  setBackground();
+  
   // step physics world
   box2d.step();
 
