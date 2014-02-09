@@ -1,6 +1,3 @@
-import oscP5.*;
-import netP5.*;
-
 import pbox2d.*;
 import org.jbox2d.collision.shapes.*;
 import org.jbox2d.common.*;
@@ -14,10 +11,6 @@ LeapMotion leap;
 PBox2D box2d;
 ArrayList<Boundary> boundaries;
 ArrayList<Box> boxes;
-
-OscP5 oscP5;
-ArrayList<NetAddress> addresses;
-
 
 void setup() {
   // Setup Processing
@@ -38,8 +31,7 @@ void setup() {
   leap = new LeapMotion(this); //<>//
 
   // Setup oscP5
-  oscP5 = new OscP5(this, 13371);
-  addresses = new ArrayList<NetAddress>();
+  setupOsc();
 }
 
 
@@ -182,8 +174,3 @@ void draw() {
   ellipse(mouseX, mouseY, 5.0, 5.0);
 }
 
-void sendOSCMessage(OscMessage message){
-   for (NetAddress address : addresses){
-      oscP5.send(message, address);
-   } 
-}
