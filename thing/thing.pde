@@ -10,10 +10,13 @@ import de.voidplus.leapmotion.*;
 
 float hand_pitch_Noleap = 0;
 LeapMotion leap;
+
 PBox2D box2d;
 ArrayList<Boundary> boundaries;
-
 ArrayList<Box> boxes;
+
+OscP5 oscP5;
+ArrayList<NetAddress> addresses;
 
 void setup() {
   // Setup Processing
@@ -32,6 +35,10 @@ void setup() {
   boundaries = new ArrayList<Boundary>();
   boundaries.add(new Boundary(mouseX, mouseY, 100, 10, -1));
   leap = new LeapMotion(this); //<>//
+
+  // Setup oscP5
+  oscP5 = new OscP5(this, 13371);
+  addresses = new ArrayList<NetAddress>();
 }
 
 //changes background based on the avg hue value of all the boxes
@@ -39,19 +46,20 @@ void setup() {
 void setBackground() {  
   int total_hue = 0;
   int avg_hue = 0;
-  if(boxes.size() > 0){
-    for(int i = 0; i < boxes.size(); i++){
-        total_hue += boxes.get(i).getHue();
+  if (boxes.size() > 0) {
+    for (Box box : boxes) {
+      {
+        total_hue += box.getHue();
+      }
+      avg_hue = total_hue/boxes.size();
     }
-    avg_hue = total_hue/boxes.size();
+    background((avg_hue)%360, 100, 60);
   }
-  background((avg_hue)%360, 100, 60);
 }
-
 void draw() {
   //background(360, 0, 100);
   setBackground();
-  
+
   // step physics world
   box2d.step();
 
@@ -92,19 +100,19 @@ void draw() {
   }
 
   // Delete hands that leave the simulation
-  for (int i = 0; i < boundaries.size(); i++){
+  for (int i = 0; i < boundaries.size(); i++) {
     Boundary boundary = boundaries.get(i);
-    if (boundary.getId() != -1){
-       boolean delete = true;
-       for (Hand hand : leap.getHands()){
-          if (hand.getId() == boundary.getId()){
-             delete = false; 
-          }
-       } 
-       if (delete){
-          boundary.destroy();
-          boundaries.remove(i); 
-       }
+    if (boundary.getId() != -1) {
+      boolean delete = true;
+      for (Hand hand : leap.getHands()) {
+        if (hand.getId() == boundary.getId()) {
+          delete = false;
+        }
+      } 
+      if (delete) {
+        boundary.destroy();
+        boundaries.remove(i);
+      }
     }
   }
 
