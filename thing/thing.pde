@@ -18,7 +18,6 @@ ArrayList<Box> boxes;
 OscP5 oscP5;
 ArrayList<NetAddress> addresses;
 
-float cur_bkgrnd_hue = 0;
 
 void setup() {
   // Setup Processing
@@ -43,24 +42,6 @@ void setup() {
   addresses = new ArrayList<NetAddress>();
 }
 
-//changes background based on the avg hue value of all the boxes
-//currently broken because boxes aren't getting deleted
-void setBackground() {  
-  int total_hue = 0;
-  int avg_hue = 0;
-  if(boxes.size() > 0){
-    for(Box box : boxes){
-        total_hue += box.getHue();
-    }
-    avg_hue = total_hue/boxes.size();
-  }
-  if(avg_hue - cur_bkgrnd_hue < 0)
-     cur_bkgrnd_hue -= .2;
-  else
-     cur_bkgrnd_hue += .2;
-  //System.out.println(cur_bkgrnd_hue%360);
-  background((cur_bkgrnd_hue)%360, 100, 60);
-}
 
 void draw() {
   //background(360, 0, 100);
