@@ -8,7 +8,7 @@ import de.voidplus.leapmotion.*;
 float hand_pitch_Noleap = 0;
 LeapMotion leap;
 PBox2D box2d;
-ArrayList<Boundary> leapBoundaries;
+ArrayList<Boundary> boundaries;
 
 ArrayList<Box> boxes;
 
@@ -26,7 +26,8 @@ void setup() {
   boxes = new ArrayList<Box>();
 
   // Setup Leap
-  leapBoundaries = new ArrayList<Boundary>();
+  boundaries = new ArrayList<Boundary>();
+  boundaries.add(new Boundary(mouseX, mouseY, 100, 10, -1));
   leap = new LeapMotion(this); //<>//
 }
 
@@ -37,19 +38,20 @@ void draw() {
   box2d.step();
 
   // give all of the existing boxes gravity
-  for (Box b : boxes){
-     b.applyGravity(); 
+  for (Box b : boxes) {
+    b.applyGravity();
   }
 
   // Spawn boxes
-  if (random(1) < 0.2 && leapBoundaries.size() > 0) {
+  if (random(1) < 0.2 && boundaries.size() > 0) {
     Box p;
-    if (random(1) < 0.5){
-      p = new Box(width/2 + random(-100,100), -10, leapBoundaries.get(leapBoundaries.size() - 1).getHue(), SpawnLocation.TOP);
-    } else {
-      p = new Box(width/2 + random(-100,100), height+10, leapBoundaries.get(leapBoundaries.size() - 1).getHue(), SpawnLocation.BOTTOM);
+    if (random(1) < 0.5) {
+      p = new Box(width/2 + random(-100, 100), -10, boundaries.get(boundaries.size() - 1).getHue(), SpawnLocation.TOP);
+    } 
+    else {
+      p = new Box(width/2 + random(-100, 100), height+10, boundaries.get(boundaries.size() - 1).getHue(), SpawnLocation.BOTTOM);
     }
-    
+
     boxes.add(p);
   }
 
@@ -65,28 +67,47 @@ void draw() {
       boxes.remove(i);
     }
   }
-  
+
   // Display hands
-  for (int i = 0; i<leapBoundaries.size(); i++)
-  {
-    leapBoundaries.get(i).display();
-    box2d.destroyBody(leapBoundaries.get(i).b);
-    leapBoundaries.remove(i);
+  for (Boundary boundary : boundaries) {
+    boundary.display();
   }
 
+  // Delete hands that leave the simulation
+  for (int i = 0; i < boundaries.size(); i++){
+    Boundary boundary = boundaries.get(i);
+    if (boundary.getId() != -1){
+       boolean delete = true;
+       for (Hand hand : leap.getHands()){
+          if (hand.getId() == boundary.getId()){
+             delete = false; 
+          }
+       } 
+       if (delete){
+          boundary.destroy();
+          boundaries.remove(i); 
+       }
+    }
+  }
+
+  System.out.println(boundaries.size());
 
   //NO LEAP MODE
-  if(keyPressed){
-    if(key == 'a' || key == 'A'){
+  if (keyPressed) {
+    if (key == 'a' || key == 'A') {
       hand_pitch_Noleap = hand_pitch_Noleap + 1;
     }
-    if(key == 'd' || key == 'D'){
+    if (key == 'd' || key == 'D') {
       hand_pitch_Noleap = hand_pitch_Noleap - 1;
     }
   }
   float angle2 = -1 * hand_pitch_Noleap * 3.14 / 180.0;
-  leapBoundaries.add(new Boundary(mouseX, mouseY,100,10,angle2,-1));
-  
+  for (Boundary boundary : boundaries) {
+    if (boundary.getId() == -1) {
+      boundary.move(mouseX, mouseY, angle2);
+    }
+  }
+
   // HANDS
   for (Hand hand : leap.getHands()) {
 
@@ -102,13 +123,20 @@ void draw() {
     PVector sphere_position  = hand.getSpherePosition();
     float   sphere_radius    = hand.getSphereRadius();
 
-    System.out.println(hand_id);
-
     float angle = -1 * hand_pitch * 3.14 / 180.0;
-      if(hand_position.z>20)
-      {
-        leapBoundaries.add(new Boundary(hand_position.x, hand_position.y,100,10,angle,hand_id));
+    boolean created = false;
+    if (hand_position.z>20)
+    {
+      for (Boundary boundary : boundaries) {
+        if  (boundary.getId() == hand_id) {
+          boundary.move(hand_position.x, hand_position.y, angle); 
+          created = true;
+        }
       }
+      if (!created) {
+        boundaries.add(new Boundary(hand_position.x, hand_position.y, 100, 10, angle, hand_id));
+      }
+    }
 
     // FINGERS
     for (Finger finger : hand.getFingers()) {
@@ -193,3 +221,4 @@ void leapOnDisconnect() {
 void leapOnExit() {
   // println("Leap Motion Exit");
 }
+

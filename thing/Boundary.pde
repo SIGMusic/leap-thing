@@ -89,6 +89,10 @@ class Boundary {
   void move(float x_, float y_){
      this.move(x_, y_, this.b.getAngle()); 
   }
+  
+  void destroy(){
+     box2d.destroyBody(this.b); 
+  }
 }
 
 
