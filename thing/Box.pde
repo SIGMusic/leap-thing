@@ -25,6 +25,7 @@ class Box {
     makeBody(new Vec2(x, y), w, h);
     
     int hue = (boundaryHue + 180);
+    
     switch (location){
        case TOP:
           hue += 20;
@@ -33,6 +34,8 @@ class Box {
     }
     hue = hue % 360;
     c = color(hue, 100, 100);
+    
+    myHue = hue;
   }
 
   // This function removes the particle from the box2d world
