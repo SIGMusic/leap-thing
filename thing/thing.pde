@@ -200,3 +200,9 @@ void draw() {
   // MOUSE
   ellipse(mouseX, mouseY, 5.0, 5.0);
 }
+
+void sendOSCMessage(OscMessage message){
+   for (NetAddress address : addresses){
+      oscP5.send(message, address);
+   } 
+}
