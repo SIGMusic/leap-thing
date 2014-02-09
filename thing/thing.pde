@@ -42,7 +42,6 @@ void setBackground() {
     }
     avg_hue = total_hue/boxes.size();
   }
-  //System.out.println(((avg_hue)%360));
   background((avg_hue)%360, 100, 60);
 }
 
@@ -105,8 +104,6 @@ void draw() {
        }
     }
   }
-
-  System.out.println(boundaries.size());
 
   //NO LEAP MODE
   if (keyPressed) {
