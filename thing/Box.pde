@@ -6,7 +6,7 @@
 
 
 // A rectangular box
-class Box {
+class Box extends Shape {
   
   // We need to keep track of a Body and a width and height
   Body body;

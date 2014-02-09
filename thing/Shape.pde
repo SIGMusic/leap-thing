@@ -1,7 +1,5 @@
-abstract class Shapes {
+abstract class Shape {
   
-  abstract void setup();
-  abstract void draw();
   abstract void display();
   abstract void applyGravity();
   abstract void killBody();
