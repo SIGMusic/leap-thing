@@ -114,5 +114,12 @@ class Box extends Shape {
   int getHue(){
      return myHue; 
   }
+  
+  void sendOSC(){
+    OscMessage msg = new OscMessage("/shape/box");
+    msg.add(this.w);
+    msg.add(this.h);
+    sendOSCMessage(msg);
+  }
 }
 

@@ -6,4 +6,5 @@ abstract class Shape {
   abstract void makeBody(Vec2 center, float w_, float h_);
   abstract boolean done();
   abstract int getHue();
+  abstract void sendOSC();
 }
