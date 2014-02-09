@@ -10,7 +10,7 @@ LeapMotion leap;
 
 PBox2D box2d;
 ArrayList<Boundary> boundaries;
-ArrayList<Box> boxes;
+ArrayList<Shape> shapes;
 
 void setup() {
   // Setup Processing
@@ -23,7 +23,7 @@ void setup() {
   box2d = new PBox2D(this);
   box2d.createWorld();
   box2d.setGravity(0, 0);
-  boxes = new ArrayList<Box>();
+  shapes = new ArrayList<Shape>();
 
   // Setup Leap
   boundaries = new ArrayList<Boundary>();
@@ -42,12 +42,12 @@ void draw() {
   // step physics world
   box2d.step();
 
-  // give all of the existing boxes gravity
-  for (Box b : boxes) {
-    b.applyGravity();
+  // give all of the existing shapes gravity
+  for (Shape s : shapes) {
+    s.applyGravity();
   }
 
-  // Spawn boxes
+  // Spawn shapes
   if (random(1) < 0.2 && boundaries.size() > 0) {
     Box p;
     if (random(1) < 0.5) {
@@ -57,19 +57,19 @@ void draw() {
       p = new Box(width/2 + random(-100, 100), height+10, boundaries.get(boundaries.size() - 1).getHue(), SpawnLocation.BOTTOM);
     }
 
-    boxes.add(p);
+    shapes.add(p);
   }
 
-  // Display all boxes
-  for (Box b : boxes) {
+  // Display all shapes
+  for (Shape b : shapes) {
     b.display();
   }
 
-  // Delete boxes that leave the screen
-  for (int i = boxes.size()-1; i >= 0; i--) {
-    Box b = boxes.get(i);
+  // Delete shapes that leave the screen
+  for (int i = shapes.size()-1; i >= 0; i--) {
+    Shape b = shapes.get(i);
     if (b.done()) {
-      boxes.remove(i);
+      shapes.remove(i);
     }
   }
 

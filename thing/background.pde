@@ -3,11 +3,11 @@ float cur_bkgrnd_hue = 0;
 void setBackground() {  
   int total_hue = 0;
   int avg_hue = 0;
-  if(boxes.size() > 0){
-    for(Box box : boxes){
+  if(shapes.size() > 0){
+    for(Shape box : shapes){
         total_hue += box.getHue();
     }
-    avg_hue = total_hue/boxes.size();
+    avg_hue = total_hue/shapes.size();
   }
   if(avg_hue - cur_bkgrnd_hue < 0)
      cur_bkgrnd_hue -= .2;
