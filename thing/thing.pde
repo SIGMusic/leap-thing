@@ -32,6 +32,7 @@ void setup() {
 }
 
 //changes background based on the avg hue value of all the boxes
+//currently broken because boxes aren't getting deleted
 void setBackground() {  
   int total_hue = 0;
   int avg_hue = 0;
