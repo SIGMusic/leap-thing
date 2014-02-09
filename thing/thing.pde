@@ -1,3 +1,6 @@
+import oscP5.*;
+import netP5.*;
+
 import pbox2d.*;
 import org.jbox2d.collision.shapes.*;
 import org.jbox2d.common.*;

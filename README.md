@@ -11,3 +11,4 @@ Based off of [leap-motion-processing example 1](https://github.com/voidplus/leap
   2. [Processing](http://processing.org/)
     * [Leap Motion for Processing](https://github.com/voidplus/leap-motion-processing)
     * [PBox2D](https://github.com/shiffman/PBox2D)
+	* [oscP5](http://www.sojamo.de/libraries/oscP5/)
