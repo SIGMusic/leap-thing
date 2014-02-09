@@ -49,15 +49,15 @@ void setBackground() {
   int total_hue = 0;
   int avg_hue = 0;
   if(boxes.size() > 0){
-    for(int i = 0; i < boxes.size(); i++){
-        total_hue += boxes.get(i).getHue();
+    for(Box box : boxes){
+        total_hue += box.getHue();
     }
     avg_hue = total_hue/boxes.size();
   }
   if(avg_hue - cur_bkgrnd_hue < 0)
-     cur_bkgrnd_hue -= .5;
+     cur_bkgrnd_hue -= .2;
   else
-     cur_bkgrnd_hue += .5;
+     cur_bkgrnd_hue += .2;
   //System.out.println(cur_bkgrnd_hue%360);
   background((cur_bkgrnd_hue)%360, 100, 60);
 }
