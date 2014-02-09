@@ -56,6 +56,7 @@ void setBackground() {
     background((avg_hue)%360, 100, 60);
   }
 }
+
 void draw() {
   //background(360, 0, 100);
   setBackground();
@@ -189,60 +190,8 @@ void draw() {
         break;
       }
     }
-
-    // TOOLS
-    for (Tool tool : hand.getTools()) {
-
-      // Basics
-      tool.draw();
-      int     tool_id           = tool.getId();
-      PVector tool_position     = tool.getPosition();
-      PVector tool_stabilized   = tool.getStabilizedPosition();
-      PVector tool_velocity     = tool.getVelocity();
-      PVector tool_direction    = tool.getDirection();
-      float   tool_time         = tool.getTimeVisible();
-
-      // Touch Emulation
-      int     touch_zone        = tool.getTouchZone();
-      float   touch_distance    = tool.getTouchDistance();
-
-      switch(touch_zone) {
-      case -1: // None
-        break;
-      case 0: // Hovering
-        // println("Hovering (#"+tool_id+"): "+touch_distance);
-        break;
-      case 1: // Touching
-        // println("Touching (#"+tool_id+")");
-        break;
-      }
-    }
   }
-
-  // DEVICES
-  // for(Device device : leap.getDevices()){
-  //   float device_horizontal_view_angle = device.getHorizontalViewAngle();
-  //   float device_verical_view_angle = device.getVerticalViewAngle();
-  //   float device_range = device.getRange();
-  // }
-
+  
   // MOUSE
   ellipse(mouseX, mouseY, 5.0, 5.0);
 }
-
-void leapOnInit() {
-  // println("Leap Motion Init");
-}
-void leapOnConnect() {
-  // println("Leap Motion Connect");
-}
-void leapOnFrame() {
-  // println("Leap Motion Frame");
-}
-void leapOnDisconnect() {
-  // println("Leap Motion Disconnect");
-}
-void leapOnExit() {
-  // println("Leap Motion Exit");
-}
-
