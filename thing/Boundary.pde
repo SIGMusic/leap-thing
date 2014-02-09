@@ -12,10 +12,14 @@ class Boundary {
   
   // But we also have to make a body for box2d to know about it
   Body b;
+  
+  // id associated with hand ID from Leap
+  int id;
 
-  Boundary(float x_,float y_, float w_, float h_) {
+  Boundary(float x_,float y_, float w_, float h_, int id_) {
     w = w_;
     h = h_;
+    id = id_;
 
     // Define the polygon
     PolygonShape sd = new PolygonShape();
@@ -36,10 +40,15 @@ class Boundary {
     b.createFixture(sd,1);
   }
 
-  Boundary(float x_,float y_, float w_, float h_, float a_) {
-    this(x_, y_, w_, h_);
+  Boundary(float x_,float y_, float w_, float h_, float a_, int id_) {
+    this(x_, y_, w_, h_, id_);
     this.move(x_, y_, a_);
   }
+  
+  int getId() {
+     return this.id; 
+  }
+  
   // Draw the boundary, if it were at an angle we'd have to do something fancier
  void display() {
     Vec2 pos = box2d.getBodyPixelCoord(b);

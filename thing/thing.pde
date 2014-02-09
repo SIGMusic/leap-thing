@@ -8,13 +8,13 @@ import de.voidplus.leapmotion.*;
 float hand_pitch_Noleap = 0;
 LeapMotion leap;
 PBox2D box2d;
-ArrayList<Boundary> dHand;
+ArrayList<Boundary> leapBoundaries;
 
 ArrayList<Box> boxes;
 
 void setup() {
   // Setup Processing
-  size(800, 500, P3D);
+  size(800, 600, P3D);
   background(360, 0, 100);
   smooth(); 
   colorMode(HSB, 360, 100, 100);
@@ -26,7 +26,7 @@ void setup() {
   boxes = new ArrayList<Box>();
 
   // Setup Leap
-  dHand = new ArrayList<Boundary>();
+  leapBoundaries = new ArrayList<Boundary>();
   leap = new LeapMotion(this); //<>//
 }
 
@@ -42,12 +42,12 @@ void draw() {
   }
 
   // Spawn boxes
-  if (random(1) < 0.2 && dHand.size() > 0) {
+  if (random(1) < 0.2 && leapBoundaries.size() > 0) {
     Box p;
     if (random(1) < 0.5){
-      p = new Box(width/2 + random(-100,100), -10, dHand.get(0).getHue(), SpawnLocation.TOP);
+      p = new Box(width/2 + random(-100,100), -10, leapBoundaries.get(leapBoundaries.size() - 1).getHue(), SpawnLocation.TOP);
     } else {
-      p = new Box(width/2 + random(-100,100), height+10, dHand.get(0).getHue(), SpawnLocation.BOTTOM);
+      p = new Box(width/2 + random(-100,100), height+10, leapBoundaries.get(leapBoundaries.size() - 1).getHue(), SpawnLocation.BOTTOM);
     }
     
     boxes.add(p);
@@ -67,11 +67,11 @@ void draw() {
   }
   
   // Display hands
-  for (int i = 0; i<dHand.size(); i++)
+  for (int i = 0; i<leapBoundaries.size(); i++)
   {
-    dHand.get(i).display();
-    box2d.destroyBody(dHand.get(i).b);
-    dHand.remove(i);
+    leapBoundaries.get(i).display();
+    box2d.destroyBody(leapBoundaries.get(i).b);
+    leapBoundaries.remove(i);
   }
 
 
@@ -85,7 +85,7 @@ void draw() {
     }
   }
   float angle2 = -1 * hand_pitch_Noleap * 3.14 / 180.0;
-  dHand.add(new Boundary(mouseX, mouseY,100,10,angle2));
+  leapBoundaries.add(new Boundary(mouseX, mouseY,100,10,angle2,-1));
   
   // HANDS
   for (Hand hand : leap.getHands()) {
@@ -102,10 +102,12 @@ void draw() {
     PVector sphere_position  = hand.getSpherePosition();
     float   sphere_radius    = hand.getSphereRadius();
 
+    System.out.println(hand_id);
+
     float angle = -1 * hand_pitch * 3.14 / 180.0;
       if(hand_position.z>20)
       {
-        dHand.add(new Boundary(hand_position.x, hand_position.y,100,10,angle));
+        leapBoundaries.add(new Boundary(hand_position.x, hand_position.y,100,10,angle,hand_id));
       }
 
     // FINGERS
