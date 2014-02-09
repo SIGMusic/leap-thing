@@ -18,6 +18,8 @@ ArrayList<Box> boxes;
 OscP5 oscP5;
 ArrayList<NetAddress> addresses;
 
+float cur_bkgrnd_hue = 0;
+
 void setup() {
   // Setup Processing
   size(800, 600, P3D);
@@ -46,15 +48,18 @@ void setup() {
 void setBackground() {  
   int total_hue = 0;
   int avg_hue = 0;
-  if (boxes.size() > 0) {
-    for (Box box : boxes) {
-      {
-        total_hue += box.getHue();
-      }
-      avg_hue = total_hue/boxes.size();
+  if(boxes.size() > 0){
+    for(int i = 0; i < boxes.size(); i++){
+        total_hue += boxes.get(i).getHue();
     }
-    background((avg_hue)%360, 100, 60);
+    avg_hue = total_hue/boxes.size();
   }
+  if(avg_hue - cur_bkgrnd_hue < 0)
+     cur_bkgrnd_hue -= .5;
+  else
+     cur_bkgrnd_hue += .5;
+  //System.out.println(cur_bkgrnd_hue%360);
+  background((cur_bkgrnd_hue)%360, 100, 60);
 }
 
 void draw() {
