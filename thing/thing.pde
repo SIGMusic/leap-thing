@@ -169,8 +169,5 @@ void draw() {
       }
     }
   }
-  
-  // MOUSE
-  ellipse(mouseX, mouseY, 5.0, 5.0);
 }
 
