@@ -2,6 +2,7 @@ import pbox2d.*;
 import org.jbox2d.collision.shapes.*;
 import org.jbox2d.common.*;
 import org.jbox2d.dynamics.*;
+import org.jbox2d.dynamics.contacts.*;
 
 import de.voidplus.leapmotion.*;
 
@@ -14,13 +15,13 @@ ArrayList<Shape> shapes;
 
 final boolean FULLSCREEN = false;
 
-boolean sketchFullScreen(){
+boolean sketchFullScreen() {
   return FULLSCREEN;
 }
 
 void setup() {
   // Setup Processing
-  if(FULLSCREEN)
+  if (FULLSCREEN)
   {
     size(displayWidth, displayHeight);
   }
@@ -37,6 +38,7 @@ void setup() {
   box2d.createWorld();
   box2d.setGravity(0, 0);
   shapes = new ArrayList<Shape>();
+  box2d.listenForCollisions();
 
   // Setup Leap
   boundaries = new ArrayList<Boundary>();
@@ -47,6 +49,10 @@ void setup() {
   setupOsc();
 }
 
+// contact handler
+void beginContact(Contact contact) {
+  sendContact(contact);
+}
 
 void draw() {
   //background(360, 0, 100);

@@ -22,6 +22,12 @@ void sendOSCMessage(OscMessage message) {
   }
 }
 
+void sendContact(Contact contact) {
+  OscMessage msg = new OscMessage("/contact");
+  sendOSCMessage(msg);
+}
+
+
 class OSCThread extends Thread {
   public void run() {
     while (true) {
