@@ -33,17 +33,17 @@ class OSCThread extends Thread {
       for (Shape shape : clonedShapes) {
         shape.sendOSC();
       }
-      
+
       // Send boundaries
       ArrayList<Boundary> clonedBoundaries;
-      synchronized(boundaries){
-         clonedBoundaries = (ArrayList<Boundary>)boundaries.clone(); 
+      synchronized(boundaries) {
+        clonedBoundaries = (ArrayList<Boundary>)boundaries.clone();
       }
-      for (Boundary boundary : clonedBoundaries){
-         boundary.sendOSC(); 
+      for (Boundary boundary : clonedBoundaries) {
+        boundary.sendOSC();
       }
-      
-      
+
+
       try { 
         Thread.sleep(100L);
       } 

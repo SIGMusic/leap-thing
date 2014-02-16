@@ -6,6 +6,8 @@
 
 
 // A rectangular box
+int shapeCounter = 0;
+
 class Box extends Shape {
   
   // We need to keep track of a Body and a width and height
@@ -14,6 +16,7 @@ class Box extends Shape {
   float h;
   int c;
   int myHue;
+  int id;
   SpawnLocation l;
 
   // Constructor
@@ -36,6 +39,7 @@ class Box extends Shape {
     c = color(hue, 100, 100);
     
     myHue = hue;
+    this.id = shapeCounter ++;
   }
 
   // This function removes the particle from the box2d world
@@ -115,9 +119,14 @@ class Box extends Shape {
      return myHue; 
   }
   
+  int getId(){
+     return this.id; 
+  }
+  
   void sendOSC(){
     OscMessage msg = new OscMessage("/shape");
     msg.add("Box");
+    msg.add(this.id);
     msg.add(this.w);
     msg.add(this.h);
     sendOSCMessage(msg);
