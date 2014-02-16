@@ -17,6 +17,7 @@ class NagonObject extends Shape {
   int c;
   int myHue;
   int id;
+  int sides;
   SpawnLocation l;
 
   // Constructor
@@ -40,6 +41,7 @@ class NagonObject extends Shape {
     
     myHue = hue;
     this.id = NagonCounter ++;
+    this.sides = n;
   }
 
   // This function removes the particle from the box2d world
@@ -142,10 +144,11 @@ class NagonObject extends Shape {
   
   void sendOSC(){
     OscMessage msg = new OscMessage("/shape");
-    msg.add("Box");
+    msg.add("Nagon");
     msg.add(this.id);
     msg.add(this.w);
     msg.add(this.h);
+    msg.add(this.sides);
     sendOSCMessage(msg);
   }
 }
