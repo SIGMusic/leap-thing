@@ -17,12 +17,12 @@ class Box extends Shape {
   SpawnLocation l;
 
   // Constructor
-  Box(float x, float y, int boundaryHue, SpawnLocation location) {
-    w = random(5, 30);
+  Box(float x, float y, int boundaryHue, SpawnLocation location, int n) {
+    w = random(20, 50);
     h = random(5, 30);
     l = location;
     // Add the box to the box2d world
-    makeBody(new Vec2(x, y), w, h);
+    makeBody(new Vec2(x, y), w, h, n);
     
     int hue = (boundaryHue + 180);
     
@@ -61,6 +61,9 @@ class Box extends Shape {
     Vec2 pos = box2d.getBodyPixelCoord(body);
     // Get its angle of rotation
     float a = body.getAngle();
+    
+    Fixture f = body.getFixtureList();
+    PolygonShape ps = (PolygonShape) f.getShape();
 
     rectMode(CENTER);
     pushMatrix();
@@ -68,7 +71,14 @@ class Box extends Shape {
     rotate(-a);
     fill(this.c);
     stroke(0);
-    rect(0, 0, w, h);
+    beginShape();
+    //println(vertices.length);
+    // For every vertex, convert to pixel vector
+    for (int i = 0; i < ps.getVertexCount(); i++) {
+      Vec2 v = box2d.vectorWorldToPixels(ps.getVertex(i));
+      vertex(v.x, v.y);
+    }
+    endShape(CLOSE);
     popMatrix();
   }
 
@@ -82,13 +92,22 @@ class Box extends Shape {
   }
 
   // This function adds the rectangle to the box2d world
-  void makeBody(Vec2 center, float w_, float h_) {
+  void makeBody(Vec2 center, float w_, float h_, int n) {
 
     // Define a polygon (this is what we use for a rectangle)
     PolygonShape sd = new PolygonShape();
-    float box2dW = box2d.scalarPixelsToWorld(w_/2);
-    float box2dH = box2d.scalarPixelsToWorld(h_/2);
-    sd.setAsBox(box2dW, box2dH);
+    
+    float deg = 360 / n;
+    Vec2[] vertices = new Vec2[n];
+   
+    for(int i = 0; i < n; i++)
+    {
+      vertices[i] = box2d.vectorPixelsToWorld(new Vec2(cos(radians(deg * (n - i))) * (w_/2), sin(radians(deg * (n - i))) * (w_/2)));//Change 2nd w_ to h_ to get non-symetric objects
+    } 
+
+
+    sd.set(vertices, vertices.length);
+
 
     // Define a fixture
     FixtureDef fd = new FixtureDef();

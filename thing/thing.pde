@@ -48,13 +48,14 @@ void draw() {
   }
 
   // Spawn shapes
+
   if (random(1) < 0.2 && boundaries.size() > 0) {
     Box p;
     if (random(1) < 0.5) {
-      p = new Box(width/2 + random(-100, 100), -10, boundaries.get(boundaries.size() - 1).getHue(), SpawnLocation.TOP);
+      p = new Box(width/2 + random(-100, 100), -10, boundaries.get(boundaries.size() - 1).getHue(), SpawnLocation.TOP, int(random(7)) + 3);
     } 
     else {
-      p = new Box(width/2 + random(-100, 100), height+10, boundaries.get(boundaries.size() - 1).getHue(), SpawnLocation.BOTTOM);
+      p = new Box(width/2 + random(-100, 100), height+10, boundaries.get(boundaries.size() - 1).getHue(), SpawnLocation.BOTTOM,  int(random(7)) + 3);
     }
 
     shapes.add(p);
