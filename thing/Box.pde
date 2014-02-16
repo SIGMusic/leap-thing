@@ -96,7 +96,7 @@ class Box extends Shape {
     // Parameters that affect physics
     fd.density = 1;
     fd.friction = 0.3;
-    fd.restitution = 0.5;
+    fd.restitution = 1.2;
 
     // Define the body and make it from the shape
     BodyDef bd = new BodyDef();
@@ -116,7 +116,8 @@ class Box extends Shape {
   }
   
   void sendOSC(){
-    OscMessage msg = new OscMessage("/shape/box");
+    OscMessage msg = new OscMessage("/shape");
+    msg.add("Box");
     msg.add(this.w);
     msg.add(this.h);
     sendOSCMessage(msg);
