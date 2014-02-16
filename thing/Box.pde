@@ -6,6 +6,8 @@
 
 
 // A rectangular box
+int shapeCounter = 0;
+
 class Box extends Shape {
   
   // We need to keep track of a Body and a width and height
@@ -14,6 +16,7 @@ class Box extends Shape {
   float h;
   int c;
   int myHue;
+  int id;
   SpawnLocation l;
 
   // Constructor
@@ -36,6 +39,7 @@ class Box extends Shape {
     c = color(hue, 100, 100);
     
     myHue = hue;
+    this.id = shapeCounter ++;
   }
 
   // This function removes the particle from the box2d world
@@ -48,7 +52,7 @@ class Box extends Shape {
     // Let's find the screen position of the particle
     Vec2 pos = box2d.getBodyPixelCoord(body);
     // Is it off the bottom of the screen?
-    if (pos.y > height+w*h || pos.y < -30) {
+    if (pos.y > height+w*h || pos.y < -30 || pos.x > width+w*h || pos.x < -30) {
       killBody();
       return true;
     }
@@ -115,7 +119,7 @@ class Box extends Shape {
     // Parameters that affect physics
     fd.density = 1;
     fd.friction = 0.3;
-    fd.restitution = 0.5;
+    fd.restitution = 1.2;
 
     // Define the body and make it from the shape
     BodyDef bd = new BodyDef();
@@ -134,8 +138,14 @@ class Box extends Shape {
      return myHue; 
   }
   
+  int getId(){
+     return this.id; 
+  }
+  
   void sendOSC(){
-    OscMessage msg = new OscMessage("/shape/box");
+    OscMessage msg = new OscMessage("/shape");
+    msg.add("Box");
+    msg.add(this.id);
     msg.add(this.w);
     msg.add(this.h);
     sendOSCMessage(msg);
