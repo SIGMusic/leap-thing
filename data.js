@@ -4,6 +4,6 @@
 		"/boundary" : [id (int), width (float), height (float), hue (int [0, 360))]
 	},
 	"Asynchronous (on event)" : {
-		
+		"/contact" : [] // collision handling
 	}
 }
