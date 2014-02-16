@@ -25,6 +25,7 @@ void sendOSCMessage(OscMessage message) {
 class OSCThread extends Thread {
   public void run() {
     while (true) {
+      // Send shapes
       ArrayList<Shape> clonedShapes;
       synchronized (shapes) {
         clonedShapes =  (ArrayList<Shape>)shapes.clone();
@@ -32,6 +33,17 @@ class OSCThread extends Thread {
       for (Shape shape : clonedShapes) {
         shape.sendOSC();
       }
+      
+      // Send boundaries
+      ArrayList<Boundary> clonedBoundaries;
+      synchronized(boundaries){
+         clonedBoundaries = (ArrayList<Boundary>)boundaries.clone(); 
+      }
+      for (Boundary boundary : clonedBoundaries){
+         boundary.sendOSC(); 
+      }
+      
+      
       try { 
         Thread.sleep(100L);
       } 
