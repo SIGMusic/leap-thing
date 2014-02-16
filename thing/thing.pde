@@ -11,6 +11,7 @@ LeapMotion leap;
 PBox2D box2d;
 ArrayList<Boundary> boundaries;
 ArrayList<Shape> shapes;
+ArrayList<Nagon> nagons;
 
 final boolean FULLSCREEN = false;
 
@@ -37,6 +38,7 @@ void setup() {
   box2d.createWorld();
   box2d.setGravity(0, 0);
   shapes = new ArrayList<Shape>();
+  nagons = new ArrayList<Nagon>();
 
   // Setup Leap
   boundaries = new ArrayList<Boundary>();
@@ -59,31 +61,34 @@ void draw() {
   for (Shape s : shapes) {
     s.applyGravity();
   }
+  
+  for (Nagon s : nagons) {
+    s.applyGravity();
+  }
 
   // Spawn shapes
-
   if (random(1) < 0.2 && boundaries.size() > 0) {
-    Box p;
+    NagonObject s;
+
     if (random(1) < 0.5) {
-      p = new Box(width/2 + random(-100, 100), -10, boundaries.get(boundaries.size() - 1).getHue(), SpawnLocation.TOP, int(random(7)) + 3);
+      s = new NagonObject(width/2 + random(-100, 100), -10, boundaries.get(boundaries.size() - 1).getHue(), SpawnLocation.TOP, int(random(5))+3);
     } 
     else {
-      p = new Box(width/2 + random(-100, 100), height+10, boundaries.get(boundaries.size() - 1).getHue(), SpawnLocation.BOTTOM,  int(random(7)) + 3);
+      s = new NagonObject(width/2 + random(-100, 100), height+10, boundaries.get(boundaries.size() - 1).getHue(), SpawnLocation.BOTTOM, int(random(5))+3);
     }
-
-    shapes.add(p);
+    nagons.add(s);
   }
 
   // Display all shapes
-  for (Shape b : shapes) {
+  for (Nagon b : nagons) {
     b.display();
   }
 
   // Delete shapes that leave the screen
-  for (int i = shapes.size()-1; i >= 0; i--) {
-    Shape b = shapes.get(i);
+  for (int i = nagons.size()-1; i >= 0; i--) {
+    Nagon b = nagons.get(i);
     if (b.done()) {
-      shapes.remove(i);
+      nagons.remove(i);
     }
   }
 
