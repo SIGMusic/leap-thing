@@ -12,6 +12,7 @@ LeapMotion leap;
 PBox2D box2d;
 ArrayList<Boundary> boundaries;
 ArrayList<Shape> shapes;
+ArrayList<Hand> hands;
 
 final boolean FULLSCREEN = false;
 
@@ -44,6 +45,7 @@ void setup() {
   boundaries = new ArrayList<Boundary>();
   boundaries.add(new Boundary(mouseX, mouseY, 100, 10, -1));
   leap = new LeapMotion(this); //<>//
+  hands = new ArrayList<Hand>();
 
   // Setup oscP5
   setupOsc();
@@ -129,6 +131,8 @@ void draw() {
       boundary.move(mouseX, mouseY, angle2);
     }
   }
+
+  hands=leap.getHands();
 
   // HANDS
   for (Hand hand : leap.getHands()) {

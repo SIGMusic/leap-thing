@@ -22,12 +22,6 @@ void sendOSCMessage(OscMessage message) {
   }
 }
 
-void sendContact(Contact contact) {
-  OscMessage msg = new OscMessage("/contact");
-  sendOSCMessage(msg);
-}
-
-
 class OSCThread extends Thread {
   public void run() {
     while (true) {
@@ -49,6 +43,15 @@ class OSCThread extends Thread {
         boundary.sendOSC();
       }
 
+      // send hands
+      ArrayList<Hand> clonedHands;
+      synchronized(hands) {
+        clonedHands = (ArrayList<Hand>)hands.clone();
+      }
+      for (Hand hand : clonedHands) {
+        sendHand(hand);
+      }
+
 
       try { 
         Thread.sleep(100L);
@@ -57,5 +60,16 @@ class OSCThread extends Thread {
       }
     }
   }
+}
+
+void sendContact(Contact contact) {
+  OscMessage msg = new OscMessage("/contact");
+  sendOSCMessage(msg);
+}
+
+void sendHand(Hand hand) {
+  OscMessage msg = new OscMessage("/hand");
+  msg.add(hand.getId());
+  sendOSCMessage(msg);
 }
 
