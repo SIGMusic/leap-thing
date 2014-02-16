@@ -52,7 +52,7 @@ class Box extends Shape {
     // Let's find the screen position of the particle
     Vec2 pos = box2d.getBodyPixelCoord(body);
     // Is it off the bottom of the screen?
-    if (pos.y > height+w*h || pos.y < -30) {
+    if (pos.y > height+w*h || pos.y < -30 || pos.x > width+w*h || pos.x < -30) {
       killBody();
       return true;
     }
