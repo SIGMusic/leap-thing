@@ -12,9 +12,22 @@ PBox2D box2d;
 ArrayList<Boundary> boundaries;
 ArrayList<Shape> shapes;
 
+final boolean FULLSCREEN = false;
+
+boolean sketchFullScreen(){
+  return FULLSCREEN;
+}
+
 void setup() {
   // Setup Processing
-  size(800, 600, P3D);
+  if(FULLSCREEN)
+  {
+    size(displayWidth, displayHeight);
+  }
+  else
+  {
+    size(800, 600, P3D);
+  }
   background(360, 0, 100);
   smooth(); 
   colorMode(HSB, 360, 100, 100);
