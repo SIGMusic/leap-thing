@@ -4,7 +4,7 @@ class Circle extends Shape {
   Body body;
   float rad;
   int c;
-  int myHue;
+  
 
   // Constructor
   Circle(float x, float y, int boundaryHue, float _a) {
@@ -18,7 +18,7 @@ class Circle extends Shape {
     hue = hue % 360;
     c = color(hue, 100, 100);
     
-    myHue = hue;
+    this.hue = hue;
   }
 
   // This function removes the particle from the box2d world
@@ -89,7 +89,7 @@ class Circle extends Shape {
   }
   
   int getHue(){
-     return myHue; 
+     return this.hue; 
   }
   
   void sendOSC(){

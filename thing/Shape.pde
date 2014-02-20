@@ -1,4 +1,5 @@
-abstract class Shape {  
+abstract class Shape {
+  int hue; // color of the shape
   float a; // angle that gravity is applied at
   
   abstract void display();

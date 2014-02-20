@@ -15,7 +15,6 @@ class NagonObject extends Shape {
   float w;
   float h;
   int c;
-  int myHue;
   int id;
   int sides;
 
@@ -31,7 +30,7 @@ class NagonObject extends Shape {
     hue = hue % 360;
     c = color(hue, 100, 100);
     
-    myHue = hue;
+    this.hue = hue;
     this.id = NagonCounter ++;
     this.sides = n;
   }
@@ -127,7 +126,7 @@ class NagonObject extends Shape {
   }
   
   int getHue(){
-     return myHue; 
+     return this.hue; 
   }
   
   int getId(){
