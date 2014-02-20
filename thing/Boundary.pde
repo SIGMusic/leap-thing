@@ -16,9 +16,9 @@ class Boundary {
   // id associated with hand ID from Leap
   int id;
 
-  Boundary(float x_, float y_, float w_, float h_, int id_) {
-    w = w_;
-    h = h_;
+  Boundary(float x_, float y_, int id_) {
+    w = 200;
+    h = 25;
     id = id_;
 
     // Define the polygon
@@ -40,8 +40,8 @@ class Boundary {
     b.createFixture(sd, 1);
   }
 
-  Boundary(float x_, float y_, float w_, float h_, float a_, int id_) {
-    this(x_, y_, w_, h_, id_);
+  Boundary(float x_, float y_, float a_, int id_) {
+    this(x_, y_, id_);
     this.move(x_, y_, a_);
   }
 

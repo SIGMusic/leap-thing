@@ -3,7 +3,7 @@ import org.jbox2d.collision.shapes.*;
 import org.jbox2d.common.*;
 import org.jbox2d.dynamics.*;
 import org.jbox2d.dynamics.contacts.*;
-
+import java.lang.Math.*;
 import de.voidplus.leapmotion.*;
 
 float hand_pitch_Noleap = 0;
@@ -43,7 +43,7 @@ void setup() {
 
   // Setup Leap
   boundaries = new ArrayList<Boundary>();
-  boundaries.add(new Boundary(mouseX, mouseY, 100, 10, -1));
+  boundaries.add(new Boundary(mouseX, mouseY, -1));
   leap = new LeapMotion(this); //<>//
   hands = new ArrayList<Hand>();
 
@@ -69,15 +69,9 @@ void draw() {
   }
 
   // Spawn shapes
-  if (random(1) < 0.2 && boundaries.size() > 0) {
+  if (random(1) < 0.01 && boundaries.size() > 0) {
     Shape s;
-
-    if (random(1) < 0.5) {
-      s = new NagonObject(width/2 + random(-100, 100), -10, boundaries.get(boundaries.size() - 1).getHue(), SpawnLocation.TOP, int(random(5))+3);
-    } 
-    else {
-      s = new NagonObject(width/2 + random(-100, 100), height+10, boundaries.get(boundaries.size() - 1).getHue(), SpawnLocation.BOTTOM, int(random(5))+3);
-    }
+    s = new NagonObject(width/2 + random(-100, 100), height+10, boundaries.get(boundaries.size() - 1).getHue(), random(0,180), int(random(5))+3);
     shapes.add(s);
   }
 
@@ -160,7 +154,7 @@ void draw() {
         }
       }
       if (!created) {
-        boundaries.add(new Boundary(hand_position.x, hand_position.y, 100, 10, angle, hand_id));
+        boundaries.add(new Boundary(hand_position.x, hand_position.y, angle, hand_id));
       }
     }
 

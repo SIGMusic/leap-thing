@@ -1,4 +1,5 @@
-abstract class Shape {
+abstract class Shape {  
+  float a; // angle that gravity is applied at
   
   abstract void display();
   abstract void applyGravity();

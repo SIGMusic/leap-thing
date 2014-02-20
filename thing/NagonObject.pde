@@ -18,24 +18,16 @@ class NagonObject extends Shape {
   int myHue;
   int id;
   int sides;
-  SpawnLocation l;
 
   // Constructor
-  NagonObject(float x, float y, int boundaryHue, SpawnLocation location, int n) {
-    w = random(20, 50);
-    h = random(5, 30);
-    l = location;
+  NagonObject(float x, float y, int boundaryHue, float _a, int n) {
+    w = random(50, 100);
+    h = random(50, 100);
+    this.a = _a;
     // Add the box to the box2d world
     makeBody(new Vec2(x, y), w, h, n);
     
-    int hue = (boundaryHue + 180);
-    
-    switch (location){
-       case TOP:
-          hue += 20;
-       case BOTTOM:
-          hue -= 20;
-    }
+    int hue = (int)(boundaryHue + 180 + random(-20,20));
     hue = hue % 360;
     c = color(hue, 100, 100);
     
@@ -90,11 +82,11 @@ class NagonObject extends Shape {
 
   void applyGravity() {
      // Give it gravity
+    float rad = a * 3.14 / 180.0;
     float f = body.getMass() * -9.81;
-    if (this.l == SpawnLocation.BOTTOM){
-       f = f * -1; 
-    }
-    body.applyForce(new Vec2(0, f), body.getPosition()); 
+    float f_x = f * cos(rad);
+    float f_y = -1*f * sin(rad);
+    body.applyForce(new Vec2(f_x, f_y), body.getPosition()); 
   }
 
   // This function adds the rectangle to the box2d world

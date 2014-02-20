@@ -1,11 +1,3 @@
-// The Nature of Code
-// <http://www.shiffman.net/teaching/nature>
-// Spring 2010
-// PBox2D example
-
-
-
-// A rectangular box
 class Circle extends Shape {
   
   // We need to keep track of a Body and a width and height
@@ -13,23 +5,16 @@ class Circle extends Shape {
   float rad;
   int c;
   int myHue;
-  SpawnLocation l;
 
   // Constructor
-  Circle(float x, float y, int boundaryHue, SpawnLocation location) {
+  Circle(float x, float y, int boundaryHue, float _a) {
     rad = random(2, 15);
-    l = location;
+    this.a = _a;
+    
     // Add the box to the box2d world
     makeBody(new Vec2(x, y), rad, 0);
     
-    int hue = (boundaryHue + 180);
-    
-    switch (location){
-       case TOP:
-          hue += 20;
-       case BOTTOM:
-          hue -= 20;
-    }
+    int hue = (int)(boundaryHue + 180 + random(-20,20));
     hue = hue % 360;
     c = color(hue, 100, 100);
     
@@ -58,25 +43,21 @@ class Circle extends Shape {
     // We look at each body and get its screen position
     Vec2 pos = box2d.getBodyPixelCoord(body);
     // Get its angle of rotation
-    float a = body.getAngle();
+    float rotation = body.getAngle();
 
     ellipseMode(CENTER);
-    pushMatrix();
-    translate(pos.x, pos.y);
-    rotate(-a);
     fill(this.c);
     stroke(0);
-    ellipse(0, 0, 2 * rad, 2 * rad);
-    popMatrix();
+    ellipse(pos.x, pos.y, 2 * rad, 2 * rad);
   }
 
   void applyGravity() {
      // Give it gravity
+    float rad = a * 3.14 / 180.0;
     float f = body.getMass() * -9.81;
-    if (this.l == SpawnLocation.BOTTOM){
-       f = f * -1; 
-    }
-    body.applyForce(new Vec2(0, f), body.getPosition()); 
+    float f_x = f * cos(rad);
+    float f_y = -1*f * sin(rad);
+    body.applyForce(new Vec2(f_x, f_y), body.getPosition()); 
   }
 
   // This function adds the rectangle to the box2d world
