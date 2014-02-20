@@ -1,17 +1,6 @@
-// The Nature of Code
-// <http://www.shiffman.net/teaching/nature>
-// Spring 2010
-// PBox2D example
-
-
-
-// A rectangular box
 int NagonCounter = 0;
 
 class NagonObject extends Shape {
-  
-  // We need to keep track of a Body and a width and height
-  Body body;
   float w;
   float h;
   int c;
