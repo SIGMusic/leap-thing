@@ -110,4 +110,3 @@ class Circle extends Shape {
       return this.body.equals(b);
   }
 }
-

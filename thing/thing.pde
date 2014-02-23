@@ -16,6 +16,9 @@ ArrayList<OscHand> hands;
 
 final boolean FULLSCREEN = false;
 
+DebugOverlay debug = new DebugOverlay();
+boolean debugFlag = false;
+
 boolean sketchFullScreen() {
   return FULLSCREEN;
 }
@@ -44,10 +47,10 @@ void setup() {
   // Setup Leap
   boundaries = new ArrayList<Boundary>();
   boundaries.add(new Boundary(mouseX, mouseY, -1));
-  leap = new LeapMotion(this); //<>// //<>//
-  hands = new ArrayList<OscHand>(); //<>// //<>// //<>//
+  leap = new LeapMotion(this); //<>//
+  hands = new ArrayList<OscHand>();
 
-  // Setup oscP5 //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
+  // Setup oscP5
   setupOsc();
 }
 
@@ -111,6 +114,8 @@ void draw() {
         boundaries.remove(i);
       }
     }
+    
+    if (debugFlag) debug.draw();
   }
 
   //NO LEAP MODE
@@ -120,6 +125,12 @@ void draw() {
     }
     if (key == 'd' || key == 'D') {
       hand_pitch_Noleap = hand_pitch_Noleap - 1;
+    }
+    if (key == 'o' || key == 'O') {
+      debugFlag = true;
+    }
+    if (key == 'p' || key == 'P') {
+      debugFlag = false;
     }
   }
   float angle2 = -1 * hand_pitch_Noleap * 3.14 / 180.0;

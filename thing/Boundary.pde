@@ -108,4 +108,3 @@ class Boundary {
     return this.b.equals(_b);
   }
 }
-

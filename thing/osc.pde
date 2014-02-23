@@ -52,7 +52,6 @@ class OSCThread extends Thread {
         hand.sendOSC();
       }
 
-      sendBackgroundOSC();
 
       try { 
         Thread.sleep(100L);

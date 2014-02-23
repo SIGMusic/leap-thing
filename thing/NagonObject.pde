@@ -137,4 +137,3 @@ class NagonObject extends Shape {
       return body.equals(b);
   }
 }
-
