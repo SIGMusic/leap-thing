@@ -2,7 +2,7 @@ float cur_bkgrnd_hue = 0;
 int avg_hue = 0;
 void setBackground() {  
   int total_hue = 0;
-  //avg_hue;
+
   if(shapes.size() > 0){
     for(Shape box : shapes){
         total_hue += box.getHue();
