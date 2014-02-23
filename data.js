@@ -6,6 +6,6 @@
 		"/finger": [hand_id (int), finger_id (int), x_pos (float), y_pos (float)]
 	},
 	"Asynchronous (on event)" : {
-		"/contact" : [] // collision handling
+		"/contact" : [type1 (String), id1 (int), type2 (String), id2] // collision handling
 	}
 }

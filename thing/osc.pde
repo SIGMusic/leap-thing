@@ -64,5 +64,33 @@ class OSCThread extends Thread {
 
 void sendContact(Contact contact) {
   OscMessage msg = new OscMessage("/contact");
+  Fixture a = contact.getFixtureA();
+  addFixture(msg, a);
+  Fixture b = contact.getFixtureB();
+  addFixture(msg, b);
   sendOSCMessage(msg);
 }
+
+void addFixture(OscMessage msg, Fixture f) {
+  Body b = f.getBody();
+  BodyType t = b.m_type;
+  if (t == BodyType.KINEMATIC) {
+    msg.add("Boundary");
+    // find boundary
+    for (Boundary boundary : boundaries){
+       if (boundary.hasBody(b)){
+          msg.add(boundary.id);
+       } 
+    }
+  } 
+  else {
+    msg.add("Shape");
+    // find shape
+    for (Shape shape : shapes){
+       if (shape.hasBody(b)){
+          msg.add(shape.getId());
+       } 
+    }
+  }
+}
+

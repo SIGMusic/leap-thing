@@ -1,6 +1,7 @@
 class Circle extends Shape {
   float rad;
   int c;
+  Body b;
   
 
   // Constructor
@@ -16,6 +17,7 @@ class Circle extends Shape {
     c = color(hue, 100, 100);
     
     this.hue = hue;
+    this.id = shapeCounter ++;
   }
 
   // This function removes the particle from the box2d world
@@ -77,7 +79,7 @@ class Circle extends Shape {
     bd.type = BodyType.DYNAMIC;
     bd.position.set(box2d.coordPixelsToWorld(center));
 
-    body = box2d.createBody(bd);
+    this.body = box2d.createBody(bd);
     body.createFixture(fd);
 
     // Give it some initial random velocity
@@ -89,11 +91,23 @@ class Circle extends Shape {
      return this.hue; 
   }
   
+  int getId(){
+     return this.id; 
+  }
+  
   void sendOSC(){
-    OscMessage msg = new OscMessage("/shape/circle");
-    msg.add(this.rad);
+    OscMessage msg = new OscMessage("/shape");
+    msg.add("Circle");
+    msg.add(this.getId());
+    msg.add(2 * this.rad);
+    msg.add(2 * this.rad);
+    msg.add(-1); // infinity sides
     // ...
     sendOSCMessage(msg);
+  }
+  
+  boolean hasBody(Body b){
+      return this.body.equals(b);
   }
 }
 

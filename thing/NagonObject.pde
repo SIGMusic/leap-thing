@@ -1,10 +1,10 @@
-int NagonCounter = 0;
+
 
 class NagonObject extends Shape {
   float w;
   float h;
+  Body body;
   int c;
-  int id;
   int sides;
 
   // Constructor
@@ -20,7 +20,7 @@ class NagonObject extends Shape {
     c = color(hue, 100, 100);
     
     this.hue = hue;
-    this.id = NagonCounter ++;
+    this.id = shapeCounter ++;
     this.sides = n;
   }
 
@@ -106,7 +106,7 @@ class NagonObject extends Shape {
     bd.type = BodyType.DYNAMIC;
     bd.position.set(box2d.coordPixelsToWorld(center));
 
-    body = box2d.createBody(bd);
+    this.body = box2d.createBody(bd);
     body.createFixture(fd);
 
     // Give it some initial random velocity
@@ -131,6 +131,10 @@ class NagonObject extends Shape {
     msg.add(this.sides);
     // ...
     sendOSCMessage(msg);
+  }
+  
+  boolean hasBody(Body b){
+      return body.equals(b);
   }
 }
 

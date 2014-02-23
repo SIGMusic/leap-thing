@@ -103,5 +103,9 @@ class Boundary {
     // ...
     sendOSCMessage(msg);
   }
+  
+  boolean hasBody(Body _b){
+    return this.b.equals(_b);
+  }
 }
 
