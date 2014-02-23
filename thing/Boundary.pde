@@ -81,6 +81,10 @@ class Boundary {
     int hue = (int) ((distance / width) * 360 * 3);
     return hue % 360;
   }
+  
+  float getAngle() {
+    return this.b.getAngle();
+  }
 
   void move(float x_, float y_, float angle) {
     this.b.setTransform(box2d.coordPixelsToWorld(x_, y_), angle);
@@ -100,6 +104,7 @@ class Boundary {
     msg.add(w);
     msg.add(h);
     msg.add(this.getHue());
+    msg.add(this.getAngle());
     // ...
     sendOSCMessage(msg);
   }
