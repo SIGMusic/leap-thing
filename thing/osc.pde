@@ -51,8 +51,7 @@ class OSCThread extends Thread {
       for (OscHand hand : clonedHands) {
         hand.sendOSC();
       }
-      
-      sendBackgroundOSC(); //sends background information
+
 
       try { 
         Thread.sleep(100L);
@@ -98,7 +97,7 @@ void addFixture(OscMessage msg, Fixture f) {
 }
 
 void oscEvent(OscMessage msg){
-   if(msg.checkAddrPattern("/note") {
+   if(msg.checkAddrPattern("/note")) {
       int first = msg.get(0).intValue(); 
    } else {
       System.out.println("### received OscMessage with pattern " + msg.addrPattern()); 
