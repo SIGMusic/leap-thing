@@ -44,10 +44,10 @@ void setup() {
   // Setup Leap
   boundaries = new ArrayList<Boundary>();
   boundaries.add(new Boundary(mouseX, mouseY, -1));
-  leap = new LeapMotion(this); //<>//
-  hands = new ArrayList<OscHand>();
+  leap = new LeapMotion(this); //<>// //<>//
+  hands = new ArrayList<OscHand>(); //<>// //<>// //<>//
 
-  // Setup oscP5
+  // Setup oscP5 //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
   setupOsc();
 }
 
@@ -191,4 +191,3 @@ void draw() {
     }
   }
 }
-
