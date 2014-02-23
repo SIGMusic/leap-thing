@@ -129,6 +129,14 @@ class NagonObject extends Shape {
     msg.add(this.w);
     msg.add(this.h);
     msg.add(this.sides);
+    
+    Vec2 linVel = body.getLinearVelocity();
+
+    msg.add(linVel.x);
+    msg.add(linVel.y);
+
+    float angVel = body.getAngularVelocity();
+    msg.add(angVel);
     // ...
     sendOSCMessage(msg);
   }
