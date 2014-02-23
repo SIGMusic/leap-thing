@@ -6,11 +6,11 @@ class Circle extends Shape {
 
   // Constructor
   Circle(float x, float y, int boundaryHue, float _a) {
-    rad = random(2, 15);
+    rad = random(2, 50);
     this.a = _a;
     
     // Add the box to the box2d world
-    makeBody(new Vec2(x, y), rad, 0);
+    makeBody(new Vec2(x, y));
     
     int hue = (int)(boundaryHue + 180 + random(-20,20));
     hue = hue % 360;
@@ -60,7 +60,7 @@ class Circle extends Shape {
   }
 
   // This function adds the rectangle to the box2d world
-  void makeBody(Vec2 center, float w_, float h_) {
+  void makeBody(Vec2 center) {
 
     // Define a polygon (this is what we use for a rectangle)
     CircleShape sd = new CircleShape();
@@ -102,14 +102,6 @@ class Circle extends Shape {
     msg.add(2 * this.rad);
     msg.add(2 * this.rad);
     msg.add(-1); // infinity sides
-    
-    Vec2 linVel = body.getLinearVelocity();
-
-    msg.add(linVel.x);
-    msg.add(linVel.y);
-
-    float angVel = body.getAngularVelocity();
-    msg.add(angVel);
     // ...
     sendOSCMessage(msg);
   }
