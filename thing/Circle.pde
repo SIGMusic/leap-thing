@@ -1,17 +1,16 @@
 class Circle extends Shape {
-  float rad;
+  int rad;
   int c;
   Body b;
   
 
   // Constructor
-  Circle(float x, float y, int boundaryHue, float _a) {
-    rad = random(2, 50);
+ Circle(float x, float y, int radius, int boundaryHue, float _a){
+    rad = radius;
     this.a = _a;
     
     // Add the box to the box2d world
     makeBody(new Vec2(x, y));
-    
     int hue = (int)(boundaryHue + 180 + random(-20,20));
     hue = hue % 360;
     c = color(hue, 100, 100);
