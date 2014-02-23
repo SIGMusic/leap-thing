@@ -100,6 +100,7 @@ class Boundary {
     msg.add(w);
     msg.add(h);
     msg.add(this.getHue());
+    // ...
     sendOSCMessage(msg);
   }
 }

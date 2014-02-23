@@ -129,6 +129,7 @@ class NagonObject extends Shape {
     msg.add(this.w);
     msg.add(this.h);
     msg.add(this.sides);
+    // ...
     sendOSCMessage(msg);
   }
 }
