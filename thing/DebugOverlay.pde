@@ -15,7 +15,7 @@ public class DebugOverlay {
 
 void draw() {
   textFont(f,16);
-  fill(100, 120, 70);
+  fill(0, 100, 0);
   text("FPS: " + frameRate, 15, 15);
   text("Frames: " + frameCount, 15, 30);
   //text("Hand Information: \n" + getHandInfo(), 15, 45);
@@ -23,13 +23,13 @@ void draw() {
   
   public String getHandInfo() {
     StringBuilder sb = new StringBuilder();
-    //ArrayList<Hand> hands = leap.getHandList();
-//    for(Hand h : hands) {
-//      sb.append("Hand " + h.id() + ":\n");
-//      for(Finger f : h.fingers()) {
-//        sb.append("\tFinger " + f.id() + "@ (" + f.tipPosition().getX() + "," + f.tipPosition().getY() + ")\n");
+    
+//    for(Hand h : leap.getHands()) {
+//      sb.append("Hand " + h.getId() + ":\n");
+//      for(Finger f : h.getFingers()){
+//        sb.append("\tFinger " + f.getId() + "@ (" + f.tipPosition().getX() + "," + f.tipPosition().getY() + ")\n");
 //      }
-    //}
+//    }
     return sb.toString();
   }
 }
