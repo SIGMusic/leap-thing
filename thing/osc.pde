@@ -44,12 +44,12 @@ class OSCThread extends Thread {
       }
 
       // send hands
-      ArrayList<Hand> clonedHands;
+      ArrayList<OscHand> clonedHands;
       synchronized(hands) {
-        clonedHands = (ArrayList<Hand>)hands.clone();
+        clonedHands = (ArrayList<OscHand>)hands.clone();
       }
-      for (Hand hand : clonedHands) {
-        sendHand(hand);
+      for (OscHand hand : clonedHands) {
+        hand.sendOSC();
       }
 
 
@@ -66,10 +66,3 @@ void sendContact(Contact contact) {
   OscMessage msg = new OscMessage("/contact");
   sendOSCMessage(msg);
 }
-
-void sendHand(Hand hand) {
-  OscMessage msg = new OscMessage("/hand");
-  msg.add(hand.getId());
-  sendOSCMessage(msg);
-}
-

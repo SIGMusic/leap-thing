@@ -12,7 +12,7 @@ LeapMotion leap;
 PBox2D box2d;
 ArrayList<Boundary> boundaries;
 ArrayList<Shape> shapes;
-ArrayList<Hand> hands;
+ArrayList<OscHand> hands;
 
 final boolean FULLSCREEN = false;
 
@@ -45,7 +45,7 @@ void setup() {
   boundaries = new ArrayList<Boundary>();
   boundaries.add(new Boundary(mouseX, mouseY, -1));
   leap = new LeapMotion(this); //<>//
-  hands = new ArrayList<Hand>();
+  hands = new ArrayList<OscHand>();
 
   // Setup oscP5
   setupOsc();
@@ -59,6 +59,9 @@ void beginContact(Contact contact) {
 void draw() {
   //background(360, 0, 100);
   setBackground();
+
+  //clear hands arraylist
+  hands = new ArrayList<OscHand>();
 
   // step physics world
   box2d.step();
@@ -126,8 +129,6 @@ void draw() {
     }
   }
 
-  hands=leap.getHands();
-
   // HANDS
   for (Hand hand : leap.getHands()) {
 
@@ -158,8 +159,11 @@ void draw() {
       }
     }
 
+    ArrayList<Finger> fingers = hand.getFingers();
+    hands.add(new OscHand(hand, fingers));
+
     // FINGERS
-    for (Finger finger : hand.getFingers()) {
+    for (Finger finger : fingers) {
 
       // Basics
       finger.draw();
