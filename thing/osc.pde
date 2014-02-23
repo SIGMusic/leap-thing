@@ -51,7 +51,8 @@ class OSCThread extends Thread {
       for (OscHand hand : clonedHands) {
         hand.sendOSC();
       }
-
+      
+      sendBackgroundOSC(); //sends background information
 
       try { 
         Thread.sleep(100L);
