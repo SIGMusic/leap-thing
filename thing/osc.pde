@@ -80,6 +80,7 @@ void addFixture(OscMessage msg, Fixture f) {
     for (Boundary boundary : boundaries){
        if (boundary.hasBody(b)){
           msg.add(boundary.id);
+          // ...
        } 
     }
   } 
@@ -89,6 +90,7 @@ void addFixture(OscMessage msg, Fixture f) {
     for (Shape shape : shapes){
        if (shape.hasBody(b)){
           msg.add(shape.getId());
+          // ...
        } 
     }
   }
