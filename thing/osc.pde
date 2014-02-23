@@ -77,29 +77,36 @@ void addFixture(OscMessage msg, Fixture f) {
   if (t == BodyType.KINEMATIC) {
     msg.add("Boundary");
     // find boundary
-    for (Boundary boundary : boundaries){
-       if (boundary.hasBody(b)){
-          msg.add(boundary.id);
-          // ...
-       } 
+    for (Boundary boundary : boundaries) {
+      if (boundary.hasBody(b)) {
+        msg.add(boundary.id);
+        // ...
+      }
     }
   } 
   else {
     msg.add("Shape");
     // find shape
-    for (Shape shape : shapes){
-       if (shape.hasBody(b)){
-          msg.add(shape.getId());
-          // ...
-       } 
+    for (Shape shape : shapes) {
+      if (shape.hasBody(b)) {
+        msg.add(shape.getId());
+        // ...
+      }
     }
   }
 }
 
-void oscEvent(OscMessage msg){
-   if(msg.checkAddrPattern("/note")) {
-      int first = msg.get(0).intValue(); 
-   } else {
-      System.out.println("### received OscMessage with pattern " + msg.addrPattern()); 
-   }
+void oscEvent(OscMessage msg) {
+  synchronized(shapes) {
+    if (msg.checkAddrPattern("/percussion")) {
+      //shapes.add(new NagonObject(width/2, height/2, boundaries.get(boundaries.size() - 1).getHue(), random(0, 180), int(random(5))+3));
+    } 
+    else if (msg.checkAddrPattern("/minstruments")) {
+      float midi = msg.get(1).floatValue();
+      if (midi != 0.0)
+        shapes.add(new Circle(width/2, height/2, boundaries.get(boundaries.size() - 1).getHue(), random(0, 180)));
+    } 
+    System.out.println("### received OscMessage with pattern " + msg.addrPattern());
+  }
 }
+
