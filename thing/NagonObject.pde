@@ -6,6 +6,11 @@ class NagonObject extends Shape {
   Body body;
   int c;
   int sides;
+  float[] tx;
+  float[] ty;
+  float[] ang;
+  int currentAura;
+  int shadowLength = 15;
 
   // Constructor
   NagonObject(float x, float y, int boundaryHue, float _a, int n) {
@@ -19,6 +24,17 @@ class NagonObject extends Shape {
     hue = hue % 360;
     c = color(hue, 100, 100);
     
+    currentAura = 0;
+    tx = new float[shadowLength];
+    ty = new float[shadowLength];
+    ang = new float[shadowLength];
+    for(int z = 0; z < shadowLength; z ++)
+    {
+      tx[z] = -100; 
+      ty[z] = -100;  
+      ang[z] = 0;
+    }
+   
     this.hue = hue;
     this.id = shapeCounter ++;
     this.sides = n;
@@ -66,6 +82,25 @@ class NagonObject extends Shape {
     }
     endShape(CLOSE);
     popMatrix();
+    
+    for(int t = 0; t < shadowLength; t ++)
+    {
+    rectMode(CENTER);
+    pushMatrix();
+    translate(tx[t], ty[t]);
+    rotate(-ang[t]);
+    fill(this.c, 100);
+    stroke(0, 0);
+    beginShape();
+    //println(vertices.length);
+    // For every vertex, convert to pixel vector
+    for (int i = 0; i < ps.getVertexCount(); i++) {
+      Vec2 v = box2d.vectorWorldToPixels(ps.getVertex(i));
+      vertex(v.x, v.y);
+    }
+    endShape(CLOSE);
+    popMatrix();
+    }
   }
 
   void applyGravity() {
@@ -74,6 +109,12 @@ class NagonObject extends Shape {
     float f = body.getMass() * -9.81;
     float f_x = f * cos(rad);
     float f_y = -1*f * sin(rad);
+    currentAura = currentAura+1;
+    currentAura = currentAura%shadowLength;
+    Vec2 curPos = box2d.getBodyPixelCoord(body);
+    tx[currentAura] = curPos.x;
+    ty[currentAura] = curPos.y;
+    ang[currentAura] = body.getAngle();
     body.applyForce(new Vec2(f_x, f_y), body.getPosition()); 
   }
 
