@@ -20,6 +20,10 @@ final boolean FULLSCREEN = false;
 DebugOverlay debug = new DebugOverlay();
 boolean debugFlag = false;
 
+final int H_MAX = 360;
+final int S_MAX = 100;
+final int B_MAX = 100;
+
 boolean sketchFullScreen() {
   return FULLSCREEN;
 }
@@ -36,7 +40,7 @@ void setup() {
   }
   background(360, 0, 100);
   smooth(); 
-  colorMode(HSB, 360, 100, 100);
+  colorMode(HSB, H_MAX, S_MAX, B_MAX);
 
   // Setup Box2d
   box2d = new PBox2D(this);
