@@ -90,6 +90,7 @@ void draw() {
       }
     }
 
+
     // Display hands
     for (Boundary boundary : boundaries) {
       boundary.display();
