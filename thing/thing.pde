@@ -38,6 +38,8 @@ void setup() {
     size(800, 600, P3D);
   }
   background(360, 0, 100);
+  savedTime = millis();
+  
   smooth(); 
   colorMode(HSB, H_MAX, S_MAX, B_MAX);
 
@@ -58,16 +60,36 @@ void setup() {
   setupOsc();
 }
 
+
 // contact handler
 void beginContact(Contact contact) {
   sendContact(contact); //osc
+  //if(!isPulsing) pulseBackground(); //background change on contact
+  for(Boundary a: boundaries)
+  {
+    if(contact.getFixtureA() ==  a.b.getFixtureList() || contact.getFixtureB() ==  a.b.getFixtureList())  //if one of the fixtures is the boundary
+    {
+      savedTime = millis();  //used for timing, switch back to original dhue
+      dhue = 1;     
+      if (avg_hue - cur_bkgrnd_hue < 0)  //the value of dhue is how fast color will change, the different signs are just for effect; too lazy to actually figure out why it does stuff cool
+      {
+        //cur_bkgrnd_hue -= -1*dhue*25; 
+        dhue *= -2;
+      }
+      else
+      {
+        //cur_bkgrnd_hue += -1*dhue*25;
+        dhue *= 2;
+      }
+    }
+  }
 }
 
 void draw() {
   synchronized (shapes) {
     //background(360, 0, 100);
     setBackground();
-
+    pulseBackground();
 
     
       if (random(1) < 0.01 && boundaries.size() > 0) {

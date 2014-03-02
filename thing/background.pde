@@ -2,6 +2,8 @@
 
 float cur_bkgrnd_hue = 0;
 int avg_hue = 0;
+float dhue = .2; //how fast background changes
+int savedTime; //used for pulsing
 
 final int BACKGROUND_SATURATION = 100;
 final int BACKGROUND_BRIGHTNESS = 60;
@@ -15,12 +17,26 @@ void setBackground() {
     }
     avg_hue = total_hue/shapes.size();
   }
+  
   if (avg_hue - cur_bkgrnd_hue < 0)
-    cur_bkgrnd_hue -= .2;
+  {
+    cur_bkgrnd_hue -= dhue;
+  }
   else
-    cur_bkgrnd_hue += .2;
-  //System.out.println(cur_bkgrnd_hue%360);
+  {
+    cur_bkgrnd_hue += dhue;
+  }
+  while(cur_bkgrnd_hue < 0) cur_bkgrnd_hue += 360;
   background((cur_bkgrnd_hue)%360, BACKGROUND_SATURATION, BACKGROUND_BRIGHTNESS);
+}
+
+void pulseBackground()  //for the boundary+shape contact background pulse
+{
+ if(millis() - savedTime > 1000)  //change back to original dhue after .5 seconds from collision
+ {
+     dhue = .2;
+     //savedTime = millis();
+ }
 }
 
 void sendBackgroundOSC() {
