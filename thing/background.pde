@@ -32,7 +32,7 @@ void setBackground() {
 
 void pulseBackground()  //for the boundary+shape contact background pulse
 {
- if(millis() - savedTime > 1000)  //change back to original dhue after .5 seconds from collision
+ if(millis() - savedTime > 500)  //change back to original dhue after .5 seconds from collision
  {
      dhue = .2;
      //savedTime = millis();

@@ -14,7 +14,7 @@ ArrayList<Boundary> boundaries;
 ArrayList<Shape> shapes;
 ArrayList<OscHand> hands;
 
-final boolean FULLSCREEN = false;
+final boolean FULLSCREEN = true;
 
 DebugOverlay debug = new DebugOverlay();
 boolean debugFlag = false;
@@ -73,13 +73,11 @@ void beginContact(Contact contact) {
       dhue = 1;     
       if (avg_hue - cur_bkgrnd_hue < 0)  //the value of dhue is how fast color will change, the different signs are just for effect; too lazy to actually figure out why it does stuff cool
       {
-        //cur_bkgrnd_hue -= -1*dhue*25; 
-        dhue *= -2;
+        dhue *= -1;  //these can be changed to change the intensity of change
       }
       else
       {
-        //cur_bkgrnd_hue += -1*dhue*25;
-        dhue *= 2;
+        dhue *= -1;
       }
     }
   }
