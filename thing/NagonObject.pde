@@ -31,6 +31,12 @@ class NagonObject extends Shape {
     this.hue = hue;
     this.id = shapeCounter ++;
     this.sides = n;
+    
+    //Sets up evenly spaced shadows to display
+    for (int i = 0; i< numShadows; i++)
+    {
+      validShadows[i] = (i * (shadowLength/numShadows) + 1) % shadowLength;
+    }
   }
 
   // This function removes the particle from the box2d world
@@ -56,8 +62,9 @@ class NagonObject extends Shape {
     Fixture f = body.getFixtureList();
     PolygonShape ps = (PolygonShape) f.getShape();
 
-    for(int t = 0; t < shadowLength; t ++)
+    for(int j = 0; j < numShadows; j ++)
     {
+      int t = (currentAura + validShadows[j]) % shadowLength;
     rectMode(CENTER);
     pushMatrix();
     translate(this.sX[t], this.sY[t]);

@@ -24,6 +24,12 @@ class Circle extends Shape {
     
     this.hue = hue;
     this.id = shapeCounter ++;
+    
+    //Sets up evenly spaced shadows to display
+    for (int i = 0; i< numShadows; i++)
+    {
+      validShadows[i] = (i * (shadowLength/numShadows) + 1) % shadowLength;
+    }
   }
 
   // This function removes the particle from the box2d world
@@ -45,8 +51,11 @@ class Circle extends Shape {
   
   
   void displayShadow(){
-        for(int t = 0; t < shadowLength; t ++)
+    for(int j = 0; j < numShadows; j ++)
     {
+      //t holds the valid position relative to the shapes current
+      //location.
+    int t = (currentAura + validShadows[j]) % shadowLength;
     ellipseMode(CENTER);
     fill(this.c, 100);
     stroke(0, 0);
