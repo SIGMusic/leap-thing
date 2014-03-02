@@ -172,6 +172,10 @@ class NagonObject extends Shape {
     msg.add(this.h);
     msg.add(this.sides);
     
+    Vec2 pos = box2d.getBodyPixelCoord(body);
+    msg.add(pos.x);
+    msg.add(pos.y);
+    
     Vec2 linVel = body.getLinearVelocity();
 
     msg.add(linVel.x);
