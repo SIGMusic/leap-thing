@@ -79,7 +79,11 @@ void draw() {
       s.applyGravity();
     }
 
-    // Display all shapes
+    // Display all shapes and shadows
+    for (Shape b : shapes) {
+      b.displayShadow();
+    }
+    
     for (Shape b : shapes) {
       b.display();
     }

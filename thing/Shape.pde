@@ -7,6 +7,7 @@ abstract class Shape {
   int id; // unique id for this shape
   
   abstract void display();
+  abstract void displayShadow();
   abstract void applyGravity();
   abstract void killBody();
   abstract boolean done();

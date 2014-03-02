@@ -57,6 +57,33 @@ class NagonObject extends Shape {
     return false;
   }
 
+  
+  void displayShadow(){
+    
+    Fixture f = body.getFixtureList();
+    PolygonShape ps = (PolygonShape) f.getShape();
+
+    for(int t = 0; t < shadowLength; t ++)
+    {
+    rectMode(CENTER);
+    pushMatrix();
+    translate(tx[t], ty[t]);
+    rotate(-ang[t]);
+    fill(this.c, 100);
+    stroke(0, 0);
+    beginShape();
+    //println(vertices.length);
+    // For every vertex, convert to pixel vector
+    for (int i = 0; i < ps.getVertexCount(); i++) {
+      Vec2 v = box2d.vectorWorldToPixels(ps.getVertex(i));
+      vertex(v.x, v.y);
+    }
+    endShape(CLOSE);
+    popMatrix();
+    }
+    
+  }
+
   // Drawing the box
   void display() {
     // We look at each body and get its screen position
@@ -82,25 +109,6 @@ class NagonObject extends Shape {
     }
     endShape(CLOSE);
     popMatrix();
-    
-    for(int t = 0; t < shadowLength; t ++)
-    {
-    rectMode(CENTER);
-    pushMatrix();
-    translate(tx[t], ty[t]);
-    rotate(-ang[t]);
-    fill(this.c, 100);
-    stroke(0, 0);
-    beginShape();
-    //println(vertices.length);
-    // For every vertex, convert to pixel vector
-    for (int i = 0; i < ps.getVertexCount(); i++) {
-      Vec2 v = box2d.vectorWorldToPixels(ps.getVertex(i));
-      vertex(v.x, v.y);
-    }
-    endShape(CLOSE);
-    popMatrix();
-    }
   }
 
   void applyGravity() {

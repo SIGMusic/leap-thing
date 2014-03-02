@@ -35,6 +35,12 @@ class Circle extends Shape {
     }
     return false;
   }
+  
+  
+  void displayShadow(){
+    
+    
+    }
 
   // Drawing the box
   void display() {
