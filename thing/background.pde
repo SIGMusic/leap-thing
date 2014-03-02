@@ -1,5 +1,4 @@
-import java.awt.Color.*;
-import java.awt.color.ColorSpace;
+
 
 float cur_bkgrnd_hue = 0;
 int avg_hue = 0;
@@ -37,14 +36,14 @@ void sendBackgroundOSC() {
 
   //RGB
   msg = new OscMessage("/backgroundrgb");
-  java.awt.Color c = java.awt.Color.getHSBColor(cur_bkgrnd_hue / H_MAX, (float) BACKGROUND_SATURATION/S_MAX, (float) BACKGROUND_BRIGHTNESS/B_MAX);
-  msg.add(c.getRed());
-  msg.add(c.getGreen());
-  msg.add(c.getBlue());
-  c = java.awt.Color.getHSBColor(avg_hue / H_MAX, (float) BACKGROUND_SATURATION/S_MAX, (float) BACKGROUND_BRIGHTNESS/B_MAX);
-  msg.add(c.getRed());
-  msg.add(c.getGreen());
-  msg.add(c.getBlue());
+  float[] rgb = HSBtoRGB(cur_bkgrnd_hue, BACKGROUND_SATURATION, BACKGROUND_BRIGHTNESS);
+  msg.add(rgb[0]);
+  msg.add(rgb[1]);
+  msg.add(rgb[2]);
+  rgb = HSBtoRGB(avg_hue, BACKGROUND_SATURATION, BACKGROUND_BRIGHTNESS);
+  msg.add(rgb[0]);
+  msg.add(rgb[1]);
+  msg.add(rgb[2]);
   sendOSCMessage(msg);
 }
 
