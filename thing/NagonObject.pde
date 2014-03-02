@@ -147,7 +147,7 @@ class NagonObject extends Shape {
     // Parameters that affect physics
     fd.density = 1;
     fd.friction = 0.3;
-    fd.restitution = 1.05;
+    fd.restitution = this.restitution;
 
     // Define the body and make it from the shape
     BodyDef bd = new BodyDef();

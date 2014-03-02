@@ -6,6 +6,7 @@ abstract class Shape {
   float a; // angle that gravity is applied at
   int id; // unique id for this shape
   final int shadowLength = 2;
+  final float restitution = 0.95;
   
   abstract void display();
   abstract void displayShadow();
