@@ -12,7 +12,6 @@ LeapMotion leap;
 PBox2D box2d;
 ArrayList<Boundary> boundaries;
 ArrayList<Shape> shapes;
-ArrayList<Shape> queue;
 ArrayList<OscHand> hands;
 
 final boolean FULLSCREEN = false;
@@ -47,7 +46,6 @@ void setup() {
   box2d.createWorld();
   box2d.setGravity(0, 0);
   shapes = new ArrayList<Shape>();
-  queue = new ArrayList<Shape>();
   box2d.listenForCollisions();
 
   // Setup Leap
@@ -62,7 +60,7 @@ void setup() {
 
 // contact handler
 void beginContact(Contact contact) {
-  sendContact(contact);
+  sendContact(contact); //osc
 }
 
 void draw() {
