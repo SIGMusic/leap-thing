@@ -51,15 +51,19 @@ void sendBackgroundOSC() {
   sendOSCMessage(msg);
 
   //RGB
-  msg = new OscMessage("/backgroundrgb");
+  OscBundle bundle = new OscBundle();
   float[] rgb = HSBtoRGB(cur_bkgrnd_hue, BACKGROUND_SATURATION, BACKGROUND_BRIGHTNESS);
+  msg = new OscMessage("/bgrgb/red");
   msg.add(rgb[0]);
+  bundle.add(msg);
+  msg = new OscMessage("/bgrgb/green");
   msg.add(rgb[1]);
+  bundle.add(msg);
+  msg = new OscMessage("/bgrgb/blue");
   msg.add(rgb[2]);
-  rgb = HSBtoRGB(avg_hue, BACKGROUND_SATURATION, BACKGROUND_BRIGHTNESS);
-  msg.add(rgb[0]);
-  msg.add(rgb[1]);
-  msg.add(rgb[2]);
-  sendOSCMessage(msg);
+  bundle.add(msg);
+  for (NetAddress address : addresses){
+    oscP5.send(bundle,address); 
+  }
 }
 
