@@ -2,7 +2,7 @@ class Circle extends Shape {
   int rad;
   int c;
   Body b;
-  
+  int currentAura;
 
   // Constructor
  Circle(float x, float y, int radius, int boundaryHue, float _a){
@@ -14,6 +14,13 @@ class Circle extends Shape {
     int hue = (int)(boundaryHue + 180 + random(-20,20));
     hue = hue % 360;
     c = color(hue, 100, 100);
+    
+        currentAura = 0;
+    for(int z = 0; z < shadowLength; z ++)
+    {
+      this.sX[z] = -100; 
+      this.sY[z] = -100;
+    }
     
     this.hue = hue;
     this.id = shapeCounter ++;
@@ -38,7 +45,13 @@ class Circle extends Shape {
   
   
   void displayShadow(){
-    
+        for(int t = 0; t < shadowLength; t ++)
+    {
+    ellipseMode(CENTER);
+    fill(this.c, 100);
+    stroke(0, 0);
+    ellipse(this.sX[t], this.sY[t], 2 * rad, 2 * rad);
+    }
     
     }
 
@@ -61,6 +74,11 @@ class Circle extends Shape {
     float f = body.getMass() * -9.81;
     float f_x = f * cos(rad);
     float f_y = -1*f * sin(rad);
+    currentAura = currentAura+1;
+    currentAura = currentAura%shadowLength;
+    Vec2 curPos = box2d.getBodyPixelCoord(body);
+    this.sX[currentAura] = curPos.x;
+    this.sY[currentAura] = curPos.y;
     body.applyForce(new Vec2(f_x, f_y), body.getPosition()); 
   }
 
