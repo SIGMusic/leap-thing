@@ -9,6 +9,12 @@ class Boundary {
   // A boundary is a simple rectangle with x,y,width,and height
   float w;
   float h;
+  int shadowLength = 20;
+  float[] sY = new float[shadowLength];
+  float[] sX = new float[shadowLength];
+  float[] sAng = new float[shadowLength];
+  int[] sColor = new int[shadowLength];
+  int currentAura = 0;
 
   // But we also have to make a body for box2d to know about it
   Body b;
@@ -35,7 +41,7 @@ class Boundary {
     bd.type = BodyType.KINEMATIC;
     bd.position.set(box2d.coordPixelsToWorld(x_, y_));
     b = box2d.createBody(bd);
-
+    
     // Attached the shape to the body using a Fixture
     b.createFixture(sd, 1);
   }
@@ -51,6 +57,22 @@ class Boundary {
 
   // Draw the boundary, if it were at an angle we'd have to do something fancier
   void display() {
+    
+     for(int t = 0; t < shadowLength; t ++)
+    {
+        Vec2 pos = box2d.getBodyPixelCoord(b);
+
+    fill(this.sColor[t], 100);
+    stroke(0, 0);
+    rectMode(CENTER);
+
+    pushMatrix();
+    translate(this.sX[t], this.sY[t]);
+    rotate(-1*this.sAng[t]);
+    rect(0, 0, w, h);
+    popMatrix();
+    }
+    
     Vec2 pos = box2d.getBodyPixelCoord(b);
 
     fill(this.getColor());
@@ -88,6 +110,13 @@ class Boundary {
 
   void move(float x_, float y_, float angle) {
     this.b.setTransform(box2d.coordPixelsToWorld(x_, y_), angle);
+    
+    currentAura = currentAura+1;
+    currentAura = currentAura%shadowLength;
+    this.sX[currentAura] = x_;
+    this.sY[currentAura] = y_;
+    this.sAng[currentAura] = angle;
+    this.sColor[currentAura] = this.getColor();
   }
 
   void move(float x_, float y_) {

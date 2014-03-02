@@ -6,6 +6,10 @@ abstract class Shape {
   float a; // angle that gravity is applied at
   int id; // unique id for this shape
   final int shadowLength = 2;
+  float[] sY = new float[shadowLength];
+  float[] sX = new float[shadowLength];
+  float[] sAng = new float[shadowLength];
+  int[] sHue = new int[shadowLength];
   final float restitution = 0.95;
   
   abstract void display();

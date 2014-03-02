@@ -68,6 +68,14 @@ void draw() {
     //background(360, 0, 100);
     setBackground();
 
+
+    
+      if (random(1) < 0.01 && boundaries.size() > 0) {
+    Shape s;
+    s = new NagonObject(width/2 + random(-100, 100), height+10, boundaries.get(boundaries.size() - 1).getHue(), random(0,180), int(random(5))+3);
+     shapes.add(s);
+  }
+
     //clear hands arraylist
     hands = new ArrayList<OscHand>();
 

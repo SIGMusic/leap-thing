@@ -6,9 +6,6 @@ class NagonObject extends Shape {
   Body body;
   int c;
   int sides;
-  float[] tx;
-  float[] ty;
-  float[] ang;
   int currentAura;
 
   // Constructor
@@ -24,14 +21,11 @@ class NagonObject extends Shape {
     c = color(hue, 100, 100);
     
     currentAura = 0;
-    tx = new float[shadowLength];
-    ty = new float[shadowLength];
-    ang = new float[shadowLength];
     for(int z = 0; z < shadowLength; z ++)
     {
-      tx[z] = -100; 
-      ty[z] = -100;  
-      ang[z] = 0;
+      this.sX[z] = -100; 
+      this.sY[z] = -100;  
+      this.sAng[z] = 0;
     }
    
     this.hue = hue;
@@ -66,8 +60,8 @@ class NagonObject extends Shape {
     {
     rectMode(CENTER);
     pushMatrix();
-    translate(tx[t], ty[t]);
-    rotate(-ang[t]);
+    translate(this.sX[t], this.sY[t]);
+    rotate(-this.sAng[t]);
     fill(this.c, 100);
     stroke(0, 0);
     beginShape();
@@ -119,9 +113,9 @@ class NagonObject extends Shape {
     currentAura = currentAura+1;
     currentAura = currentAura%shadowLength;
     Vec2 curPos = box2d.getBodyPixelCoord(body);
-    tx[currentAura] = curPos.x;
-    ty[currentAura] = curPos.y;
-    ang[currentAura] = body.getAngle();
+    this.sX[currentAura] = curPos.x;
+    this.sY[currentAura] = curPos.y;
+    this.sAng[currentAura] = body.getAngle();
     body.applyForce(new Vec2(f_x, f_y), body.getPosition()); 
   }
 
