@@ -5,6 +5,7 @@ abstract class Shape {
   int hue; // color of the shape
   float a; // angle that gravity is applied at
   int id; // unique id for this shape
+  final int shadowLength = 2;
   
   abstract void display();
   abstract void displayShadow();
