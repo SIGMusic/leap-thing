@@ -6,7 +6,12 @@ import org.jbox2d.dynamics.contacts.*;
 import java.lang.Math.*;
 import de.voidplus.leapmotion.*;
 
+//No Leap Stuff
+//Enter mouse mode with "m" <- short for mouse
+//Exit mouse mode with "n" <- short for no mouse
 float hand_pitch_Noleap = 0;
+boolean mouseMode = false;
+
 LeapMotion leap;
 
 PBox2D box2d;
@@ -24,6 +29,8 @@ final int S_MAX = 100;
 final int B_MAX = 100;
 
 //shadows on shapes
+//Change numShadows with 0-9 keys
+//Change shadowLength with "+" and "-"
 int numShadows=2;
 int shadowLength=10;
 
@@ -53,11 +60,11 @@ void setup() {
   box2d.createWorld();
   box2d.setGravity(0, 0);
   shapes = new ArrayList<Shape>();
-  //box2d.listenForCollisions();
+  box2d.listenForCollisions();
 
   // Setup Leap
   boundaries = new ArrayList<Boundary>();
-  boundaries.add(new Boundary(mouseX, mouseY, -1));
+  //boundaries.add(new Boundary(mouseX, mouseY, -1));
   leap = new LeapMotion(this); //<>//
   hands = new ArrayList<OscHand>();
 
@@ -97,11 +104,11 @@ void draw() {
     pulseBackground();
 
     //Add Shapes Without PureData
-      if (random(1) < 0.01 && boundaries.size() > 0) {
-    Shape s;
-    s = new NagonObject(width/2 + random(-100, 100), height+10, boundaries.get(boundaries.size() - 1).getHue(), random(0,180), int(random(5))+3, numShadows, shadowLength);
-     shapes.add(s);
-  }
+    if (random(1) < 0.01 && boundaries.size() > 0) {
+      Shape s;
+      s = new NagonObject(width/2 + random(-100, 100), height+10, boundaries.get(boundaries.size() - 1).getHue(), random(0,180), int(random(5))+3, numShadows, shadowLength);
+      shapes.add(s);
+    }
 
     //clear hands arraylist
     hands = new ArrayList<OscHand>();
@@ -156,7 +163,7 @@ void draw() {
       if (debugFlag) debug.draw();
     }
 
-    //NO LEAP MODE
+
     if (keyPressed) {
       if (key == 'a' || key == 'A') {
         hand_pitch_Noleap = hand_pitch_Noleap + 1;
@@ -172,11 +179,27 @@ void draw() {
       }
       //keys 0-9
       if (key >=48 && key <= 57) {
-            numShadows = (int) key - 48;
+        numShadows = (int) key - 48;
       }
-      if (key == '-') shadowLength --;
-      if (key == '=') shadowLength ++;
+      if (key == '-' || key == '_') shadowLength --;
+      if (key == '=' || key == '+') shadowLength ++;
+      if (key == 'm' || key == 'M' && !mouseMode)
+      {
+        mouseMode = true;
+        boundaries.add(new Boundary(mouseX, mouseY, -1));
+      }
+      if (key == 'n' || key == 'N' && mouseMode)
+      {
+        mouseMode = false;
+        for (Boundary b : boundaries)
+          if (b.getId() == -1){
+            b.destroy();
+            boundaries.remove(boundaries.indexOf(b));
+            return;
+          }
+      }
     }
+    
     float angle2 = -1 * hand_pitch_Noleap * 3.14 / 180.0;
     for (Boundary boundary : boundaries) {
       if (boundary.getId() == -1) {

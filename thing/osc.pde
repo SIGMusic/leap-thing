@@ -105,7 +105,7 @@ void oscEvent(OscMessage msg) {
     else if (msg.checkAddrPattern("/minstruments")) {
       float midi = msg.get(1).intValue();
       if (midi != 0.0)
-        shapes.add(new Circle(random(0, width), random(0, height), Math.min(Math.max(int(90-midi)*2, 5), 30), boundaries.get(boundaries.size() - 1).getHue(), random(0, 180)));
+        shapes.add(new Circle(random(0, width), random(0, height), Math.min(Math.max(int(90-midi)*2, 5), 30), boundaries.get(boundaries.size() - 1).getHue(), random(0, 180), numShadows, shadowLength));
     } 
     System.out.println("### received OscMessage with pattern " + msg.addrPattern());
   }
