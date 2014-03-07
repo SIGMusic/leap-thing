@@ -66,4 +66,3 @@ void sendBackgroundOSC() {
     oscP5.send(bundle,address); 
   }
 }
-

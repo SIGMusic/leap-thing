@@ -14,7 +14,7 @@ ArrayList<Boundary> boundaries;
 ArrayList<Shape> shapes;
 ArrayList<OscHand> hands;
 
-final boolean FULLSCREEN = true;
+final boolean FULLSCREEN = false;
 
 DebugOverlay debug = new DebugOverlay();
 boolean debugFlag = false;
@@ -22,6 +22,11 @@ boolean debugFlag = false;
 final int H_MAX = 360;
 final int S_MAX = 100;
 final int B_MAX = 100;
+
+//shadows on shapes
+int numShadows=2;
+int shadowLength=10;
+
 
 boolean sketchFullScreen() {
   return FULLSCREEN;
@@ -48,7 +53,7 @@ void setup() {
   box2d.createWorld();
   box2d.setGravity(0, 0);
   shapes = new ArrayList<Shape>();
-  box2d.listenForCollisions();
+  //box2d.listenForCollisions();
 
   // Setup Leap
   boundaries = new ArrayList<Boundary>();
@@ -69,6 +74,7 @@ void beginContact(Contact contact) {
   {
     if(contact.getFixtureA() ==  a.b.getFixtureList() || contact.getFixtureB() ==  a.b.getFixtureList())  //if one of the fixtures is the boundary
     {
+      
       savedTime = millis();  //used for timing, switch back to original dhue
       dhue = 1;     
       if (avg_hue - cur_bkgrnd_hue < 0)  //the value of dhue is how fast color will change, the different signs are just for effect; too lazy to actually figure out why it does stuff cool
@@ -81,6 +87,7 @@ void beginContact(Contact contact) {
       }
     }
   }
+  
 }
 
 void draw() {
@@ -89,10 +96,10 @@ void draw() {
     setBackground();
     pulseBackground();
 
-    
+    //Add Shapes Without PureData
       if (random(1) < 0.01 && boundaries.size() > 0) {
     Shape s;
-    s = new NagonObject(width/2 + random(-100, 100), height+10, boundaries.get(boundaries.size() - 1).getHue(), random(0,180), int(random(5))+3);
+    s = new NagonObject(width/2 + random(-100, 100), height+10, boundaries.get(boundaries.size() - 1).getHue(), random(0,180), int(random(5))+3, numShadows, shadowLength);
      shapes.add(s);
   }
 
@@ -163,6 +170,12 @@ void draw() {
       if (key == 'p' || key == 'P') {
         debugFlag = false;
       }
+      //keys 0-9
+      if (key >=48 && key <= 57) {
+            numShadows = (int) key - 48;
+      }
+      if (key == '-') shadowLength --;
+      if (key == '=') shadowLength ++;
     }
     float angle2 = -1 * hand_pitch_Noleap * 3.14 / 180.0;
     for (Boundary boundary : boundaries) {
@@ -234,4 +247,3 @@ void draw() {
     }
   }
 }
-

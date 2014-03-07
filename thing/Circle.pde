@@ -5,7 +5,9 @@ class Circle extends Shape {
   int currentAura;
 
   // Constructor
- Circle(float x, float y, int radius, int boundaryHue, float _a){
+ Circle(float x, float y, int radius, int boundaryHue, float _a, int num, int len){
+    numShadows = num;
+    shadowLength = len;
     rad = radius;
     this.a = _a;
     

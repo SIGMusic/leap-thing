@@ -100,7 +100,7 @@ void addFixture(OscMessage msg, Fixture f) {
 void oscEvent(OscMessage msg) {
   synchronized(shapes) {
     if (msg.checkAddrPattern("/percussion")) {
-      shapes.add(new NagonObject(width/2, height/2, boundaries.get(boundaries.size() - 1).getHue(), random(0, 180), int(random(5))+3));
+      shapes.add(new NagonObject(width/2, height/2, boundaries.get(boundaries.size() - 1).getHue(), random(0, 180), int(random(5))+3, numShadows, shadowLength));
     } 
     else if (msg.checkAddrPattern("/minstruments")) {
       float midi = msg.get(1).intValue();
@@ -110,4 +110,3 @@ void oscEvent(OscMessage msg) {
     System.out.println("### received OscMessage with pattern " + msg.addrPattern());
   }
 }
-

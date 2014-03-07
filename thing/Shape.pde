@@ -5,13 +5,13 @@ abstract class Shape {
   int hue; // color of the shape
   float a; // angle that gravity is applied at
   int id; // unique id for this shape
-  final int shadowLength = 10;
-  final int numShadows = 2;
-  float[] sY = new float[shadowLength];
-  float[] sX = new float[shadowLength];
-  float[] sAng = new float[shadowLength];
-  int[] sHue = new int[shadowLength];
-  int[] validShadows = new int[numShadows];
+  int shadowLength;
+  float[] sY;
+  float[] sX;
+  float[] sAng;
+  int[] sHue;
+  int numShadows;
+  int[] validShadows;
   final float restitution = 0.95;
   
   abstract void display();

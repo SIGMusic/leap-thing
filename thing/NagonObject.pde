@@ -9,7 +9,14 @@ class NagonObject extends Shape {
   int currentAura;
 
   // Constructor
-  NagonObject(float x, float y, int boundaryHue, float _a, int n) {
+  NagonObject(float x, float y, int boundaryHue, float _a, int n, int num, int len) {
+    numShadows = num;
+    shadowLength = len;
+    sY = new float[shadowLength];
+    sX = new float[shadowLength];
+    sAng = new float[shadowLength];
+    sHue = new int[shadowLength];
+    validShadows = new int[numShadows];
     w = random(50, 100);
     h = random(50, 100);
     this.a = _a;
