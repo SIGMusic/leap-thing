@@ -103,7 +103,7 @@ void draw() {
     pulseBackground();
 
     //Add Shapes Without PureData
-    if (random(1) < 0.01 && boundaries.size() > 0) {
+    if (random(1) < 0.02 && boundaries.size() > 0) {
       Shape s;
       s = new NagonObject(width/2 + random(-100, 100), height+10, boundaries.get(boundaries.size() - 1).getHue(), random(0, 180), int(random(5))+3, numShadows, shadowLength);
       shapes.add(s);
@@ -151,6 +151,8 @@ void draw() {
         for (Hand hand : leap.getHands()) {
           if (hand.getId() == boundary.getId()) {
             delete = false;
+          if (hand.getPosition().z <=20) 
+            delete =true;
           }
         } 
         if (delete) {
@@ -227,12 +229,12 @@ void draw() {
       {
         for (Boundary boundary : boundaries) {
           if  (boundary.getId() == hand_id) {
-            boundary.move(hand_position.x, hand_position.y, angle); 
+            boundary.move(hand_position.x, hand_position.y+80, angle); 
             created = true;
           }
         }
         if (!created) {
-          boundaries.add(new Boundary(hand_position.x, hand_position.y, angle, hand_id));
+          boundaries.add(new Boundary(hand_position.x, hand_position.y+80, angle, hand_id));
         }
       }
 
@@ -243,6 +245,7 @@ void draw() {
       for (Finger finger : fingers) {
 
         // Basics
+        finger.getPosition().z +=80;
         finger.draw();
         int     finger_id         = finger.getId();
         PVector finger_position   = finger.getPosition();
@@ -272,9 +275,8 @@ void draw() {
         PVector p1 = fingers.get(0).getPosition();
         PVector p2 = fingers.get(fingers.size() - 1).getPosition();
 
-        forceMag = PVector.dist(p1, p2) / (width / 4.0);
+        forceMag = PVector.dist(p1, p2) / (width / 6.0);
       }
     }
   }
 }
-
