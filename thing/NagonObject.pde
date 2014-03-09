@@ -121,7 +121,7 @@ class NagonObject extends Shape {
   void applyGravity() {
      // Give it gravity
     float rad = a * 3.14 / 180.0;
-    float f = body.getMass() * -9.81;
+    float f = forceMag * body.getMass() * -9.81;
     float f_x = f * cos(rad);
     float f_y = -1*f * sin(rad);
     currentAura = currentAura+1;

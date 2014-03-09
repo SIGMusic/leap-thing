@@ -1,4 +1,5 @@
 int shapeCounter = 0;
+float forceMag = 1.0;
 
 abstract class Shape {
   Body body;

@@ -19,7 +19,7 @@ ArrayList<Boundary> boundaries;
 ArrayList<Shape> shapes;
 ArrayList<OscHand> hands;
 
-final boolean FULLSCREEN = false;
+final boolean FULLSCREEN = true;
 
 DebugOverlay debug = new DebugOverlay();
 boolean debugFlag = false;
@@ -51,7 +51,7 @@ void setup() {
   }
   background(360, 0, 100);
   savedTime = millis();
-  
+
   smooth(); 
   colorMode(HSB, H_MAX, S_MAX, B_MAX);
 
@@ -77,11 +77,11 @@ void setup() {
 void beginContact(Contact contact) {
   sendContact(contact); //osc
   //if(!isPulsing) pulseBackground(); //background change on contact
-  for(Boundary a: boundaries)
+  for (Boundary a: boundaries)
   {
-    if(contact.getFixtureA() ==  a.b.getFixtureList() || contact.getFixtureB() ==  a.b.getFixtureList())  //if one of the fixtures is the boundary
+    if (contact.getFixtureA() ==  a.b.getFixtureList() || contact.getFixtureB() ==  a.b.getFixtureList())  //if one of the fixtures is the boundary
     {
-      
+
       savedTime = millis();  //used for timing, switch back to original dhue
       dhue = 1;     
       if (avg_hue - cur_bkgrnd_hue < 0)  //the value of dhue is how fast color will change, the different signs are just for effect; too lazy to actually figure out why it does stuff cool
@@ -94,7 +94,6 @@ void beginContact(Contact contact) {
       }
     }
   }
-  
 }
 
 void draw() {
@@ -106,7 +105,7 @@ void draw() {
     //Add Shapes Without PureData
     if (random(1) < 0.01 && boundaries.size() > 0) {
       Shape s;
-      s = new NagonObject(width/2 + random(-100, 100), height+10, boundaries.get(boundaries.size() - 1).getHue(), random(0,180), int(random(5))+3, numShadows, shadowLength);
+      s = new NagonObject(width/2 + random(-100, 100), height+10, boundaries.get(boundaries.size() - 1).getHue(), random(0, 180), int(random(5))+3, numShadows, shadowLength);
       shapes.add(s);
     }
 
@@ -125,7 +124,7 @@ void draw() {
     for (Shape b : shapes) {
       b.displayShadow();
     }
-    
+
     for (Shape b : shapes) {
       b.display();
     }
@@ -192,14 +191,14 @@ void draw() {
       {
         mouseMode = false;
         for (Boundary b : boundaries)
-          if (b.getId() == -1){
+          if (b.getId() == -1) {
             b.destroy();
             boundaries.remove(boundaries.indexOf(b));
             return;
           }
       }
     }
-    
+
     float angle2 = -1 * hand_pitch_Noleap * 3.14 / 180.0;
     for (Boundary boundary : boundaries) {
       if (boundary.getId() == -1) {
@@ -252,6 +251,7 @@ void draw() {
         PVector finger_direction  = finger.getDirection();
         float   finger_time       = finger.getTimeVisible();
 
+
         // Touch Emulation
         int     touch_zone        = finger.getTouchZone();
         float   touch_distance    = finger.getTouchDistance();
@@ -267,6 +267,14 @@ void draw() {
           break;
         }
       }
+
+      if (fingers.size() > 1) {
+        PVector p1 = fingers.get(0).getPosition();
+        PVector p2 = fingers.get(fingers.size() - 1).getPosition();
+
+        forceMag = PVector.dist(p1, p2) / (width / 4.0);
+      }
     }
   }
 }
+
