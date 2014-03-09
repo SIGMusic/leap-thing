@@ -106,7 +106,7 @@ class NagonObject extends Shape {
     translate(pos.x, pos.y);
     rotate(-a);
     fill(this.c);
-    stroke(0);
+    stroke((hue + 20)%360, 100, 100);
     beginShape();
     //println(vertices.length);
     // For every vertex, convert to pixel vector
