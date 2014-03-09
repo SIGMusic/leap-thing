@@ -101,10 +101,15 @@ void beginContact(Contact contact) {
 
 void draw() {
   synchronized (shapes) {
-    //background(360, 0, 100);
     setBackground();
-    pulseBackground();
+    //background(360, 0, 100);
     image(img,0,0);
+    fill((cur_bkgrnd_hue)%360, BACKGROUND_SATURATION, BACKGROUND_BRIGHTNESS, 200);
+    noStroke();
+    rect(-5, -5, width *4, height *4);
+    
+    pulseBackground();
+
 
     //Add Shapes Without PureData
     if (random(1) < 0.02 && boundaries.size() > 0) {
