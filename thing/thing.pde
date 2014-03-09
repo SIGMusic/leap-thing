@@ -282,17 +282,17 @@ void draw() {
 }
 
 void leapOnInit(){
-  // println("Leap Motion Init");
+  println("Leap Motion Init");
 }
 void leapOnConnect(){
-  // println("Leap Motion Connect");
+  println("Leap Motion Connect");
 }
 void leapOnFrame(){
-  // println("Leap Motion Frame");
+  println("Leap Motion Frame");
 }
 void leapOnDisconnect(){
-  // println("Leap Motion Disconnect");
+  println("Leap Motion Disconnect");
 }
 void leapOnExit(){
-  // println("Leap Motion Exit");
+  println("Leap Motion Exit");
 }
