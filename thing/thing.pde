@@ -134,6 +134,14 @@ void draw() {
     for (Shape s : shapes) {
       s.applyGravity();
     }
+    
+    // give all of the existing shapes gravity
+    for (Shape s : shapes) {
+      for (Boundary b : boundaries)
+      { 
+        s.applyBoundaryField(b);
+      }  
+    }
 
     // Display all shapes and shadows
     for (Shape b : shapes) {

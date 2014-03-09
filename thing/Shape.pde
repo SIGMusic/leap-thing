@@ -1,5 +1,8 @@
 int shapeCounter = 0;
 float forceMag = 1.0;
+float max_force = 150.0;
+float force_scale = 1.0;
+float field_size = 1000.0;
 
 abstract class Shape {
   Body body;
@@ -24,5 +27,6 @@ abstract class Shape {
   abstract void sendOSC();
   abstract boolean hasBody(Body b);
   abstract int getId();
+  abstract void applyBoundaryField(Boundary b);
   abstract float getX();
 }

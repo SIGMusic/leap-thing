@@ -133,6 +133,59 @@ class NagonObject extends Shape {
     body.applyForce(new Vec2(f_x, f_y), body.getPosition()); 
   }
 
+
+  void applyBoundaryField(Boundary b) {
+     // Give it gravity
+    Vec2 pos_boundry = b.getBody().getPosition();
+    Vec2 pos_this = body.getPosition();
+    float f_x = 0.0;
+    float f_y = 0.0;
+    if(pow(-pos_boundry.x+pos_this.x,2) + pow(-pos_boundry.y+pos_this.y,2) < field_size)
+    {
+    if(pos_boundry.x-pos_this.x > 0)
+    {
+      if ((pow(-pos_boundry.x+pos_this.x,2)* forceMag * body.getMass())/force_scale > max_force)
+      {
+        f_x = -max_force;  
+      }
+      else{
+        f_x = (-max_force+pow(-pos_boundry.x+pos_this.x,2)* forceMag * body.getMass())/force_scale;
+      }
+    }
+    else{
+      if ((pow(-pos_boundry.x+pos_this.x,2)* forceMag * body.getMass())/force_scale > max_force)
+      {
+        f_x = max_force;
+      } 
+      else{
+        f_x = (max_force-pow(-pos_boundry.x+pos_this.x,2)* forceMag * body.getMass())/force_scale;
+      }
+    }
+    if(pos_boundry.y-pos_this.y > 0)
+    {
+      if ((pow(-pos_boundry.y+pos_this.y,2)* forceMag * body.getMass())/force_scale > max_force)
+      {
+        f_y = -max_force;  
+      }
+      else{
+        f_y = (-max_force+pow(-pos_boundry.y+pos_this.y,2)* forceMag * body.getMass())/force_scale;
+      }
+    }
+    else{
+      if ((pow(-pos_boundry.y+pos_this.y,2)* forceMag * body.getMass())/force_scale > max_force)
+      {
+        f_y = max_force;
+      } 
+      else{
+        f_y = (max_force-pow(-pos_boundry.y+pos_this.y,2)* forceMag * body.getMass())/force_scale;
+      }
+    }
+   
+    body.applyForce(new Vec2(f_x, f_y), body.getPosition()); 
+  }
+  }
+  
+
   // This function adds the rectangle to the box2d world
   void makeBody(Vec2 center, float w_, float h_, int n) {
 
