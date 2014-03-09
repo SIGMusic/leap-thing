@@ -129,9 +129,9 @@ class Circle extends Shape {
      return this.id; 
   }
   
-  float getY(){
+  float getX(){
     Vec2 pos = box2d.getBodyPixelCoord(body);
-    return pos.y;
+    return pos.x;
   }
   
   void sendOSC(){

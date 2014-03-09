@@ -13,7 +13,7 @@ abstract class Shape {
   int[] sHue;
   int numShadows;
   int[] validShadows;
-  final float restitution = 1.25;
+  final float restitution = 0;
   
   abstract void display();
   abstract void displayShadow();
@@ -24,5 +24,5 @@ abstract class Shape {
   abstract void sendOSC();
   abstract boolean hasBody(Body b);
   abstract int getId();
-  abstract float getY();
+  abstract float getX();
 }

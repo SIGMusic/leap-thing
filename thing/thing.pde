@@ -28,6 +28,8 @@ final int H_MAX = 360;
 final int S_MAX = 100;
 final int B_MAX = 100;
 
+final PFont f = createFont("Arial",32,true);
+
 //shadows on shapes
 //Change numShadows with 0-9 keys
 //Change shadowLength with "+" and "-"
@@ -109,7 +111,7 @@ void draw() {
     rect(-5, -5, width *4, height *4);
     
     pulseBackground();
-
+    game(); //game stuff
 
     //Add Shapes Without PureData
     if (random(1) < 0.02 && boundaries.size() > 0) {

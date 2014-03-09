@@ -56,7 +56,7 @@ class NagonObject extends Shape {
     // Let's find the screen position of the particle
     Vec2 pos = box2d.getBodyPixelCoord(body);
     // Is it off the bottom of the screen?
-    if (pos.y > height+w*h || pos.y < -30 || pos.x > width+w*h || pos.x < -30) {
+    if (pos.y > height+30 || pos.y < -30 || pos.x > width+30 || pos.x < -30) {
       killBody();
       return true;
     }
@@ -178,9 +178,9 @@ class NagonObject extends Shape {
      return this.id; 
   }
   
-  float getY(){
+  float getX(){
     Vec2 pos = box2d.getBodyPixelCoord(body);
-    return pos.y;
+    return pos.x;
   }
   
   void sendOSC(){
