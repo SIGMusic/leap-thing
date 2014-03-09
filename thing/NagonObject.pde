@@ -25,7 +25,7 @@ class NagonObject extends Shape {
     
     int hue = (int)(boundaryHue + 180 + random(-20,20));
     hue = hue % 360;
-    c = color(hue, 100, 100);
+    c = color(hue, 100, 70);
     
     currentAura = 0;
     for(int z = 0; z < shadowLength; z ++)
