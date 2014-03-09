@@ -34,6 +34,7 @@ final int B_MAX = 100;
 int numShadows=2;
 int shadowLength=10;
 
+PImage img;
 
 boolean sketchFullScreen() {
   return FULLSCREEN;
@@ -49,7 +50,9 @@ void setup() {
   {
     size(800, 600, P3D);
   }
-  background(360, 0, 100);
+  img = loadImage("xxx.jpg");
+  //background(360, 0, 100);
+  
   savedTime = millis();
 
   smooth(); 
@@ -101,6 +104,7 @@ void draw() {
     //background(360, 0, 100);
     setBackground();
     pulseBackground();
+    image(img,0,0);
 
     //Add Shapes Without PureData
     if (random(1) < 0.02 && boundaries.size() > 0) {
@@ -108,6 +112,10 @@ void draw() {
       s = new NagonObject(width/2 + random(-100, 100), height+10, boundaries.get(boundaries.size() - 1).getHue(), random(0, 180), int(random(5))+3, numShadows, shadowLength);
       shapes.add(s);
     }
+    if (boundaries.size() ==0){
+      avg_hue = 240;
+    }
+      
 
     //clear hands arraylist
     hands = new ArrayList<OscHand>();
