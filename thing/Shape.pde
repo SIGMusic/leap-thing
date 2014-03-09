@@ -24,4 +24,5 @@ abstract class Shape {
   abstract void sendOSC();
   abstract boolean hasBody(Body b);
   abstract int getId();
+  abstract float getY();
 }

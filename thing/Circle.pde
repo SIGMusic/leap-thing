@@ -129,6 +129,11 @@ class Circle extends Shape {
      return this.id; 
   }
   
+  float getY(){
+    Vec2 pos = box2d.getBodyPixelCoord(body);
+    return pos.y;
+  }
+  
   void sendOSC(){
     OscMessage msg = new OscMessage("/shape");
     msg.add("Circle");
