@@ -76,7 +76,7 @@ class Boundary {
     Vec2 pos = box2d.getBodyPixelCoord(b);
 
     fill(this.getColor());
-    stroke(0);
+    stroke((this.getHue() + 20)%360, 100, 100);
     rectMode(CENTER);
 
     pushMatrix();
