@@ -161,13 +161,13 @@ void draw() {
     
     for (Shape b : shapes) {
       if (random(1) < 0.5) {
-        if(b.getSaturation() > 60){
+        if(b.getSaturation() > 30){
           b.setSaturation(b.getSaturation()-1); 
         }
       }
       else
       {
-        if(b.getBrightness() > 60){
+        if(b.getBrightness() > 30){
           b.setBrightness(b.getBrightness()-1); 
         }
       }
