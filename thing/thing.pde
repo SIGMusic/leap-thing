@@ -42,8 +42,6 @@ final PFont f = createFont("Arial",32,true);
 int numShadows=2;
 int shadowLength=10;
 
-PImage img;
-
 boolean sketchFullScreen() {
   return FULLSCREEN;
 }
@@ -58,7 +56,6 @@ void setup() {
   {
     size(800, 600, P3D);
   }
-  img = loadImage("xxx.jpg");
   //background(360, 0, 100);
   
   savedTime = millis();
@@ -111,7 +108,6 @@ void draw() {
   synchronized (shapes) {
     setBackground();
     //background(360, 0, 100);
-    image(img,0,0);
     fill((cur_bkgrnd_hue)%360, BACKGROUND_SATURATION, BACKGROUND_BRIGHTNESS, 250);
     noStroke();
     rect(-5, -5, width *4, height *4);
