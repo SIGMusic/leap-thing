@@ -233,7 +233,7 @@ void draw() {
       if (key >=48 && key <= 57) {
         numShadows = (int) key - 48;
       }
-      if (key == '-' || key == '_') shadowLength --;
+      if ((key == '-' || key == '_') && shadowLength > 1) shadowLength --;
       if (key == '=' || key == '+') shadowLength ++;
       if (key == 'g' || key == 'G') suchMagnetism = false;
       if (key == 'f' || key == 'F') suchMagnetism = true;
