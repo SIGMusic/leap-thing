@@ -13,5 +13,6 @@ public class DebugOverlay {
     fill(0, 100, 0);
     text("FPS: " + frameRate, 15, 15);
     text("Frames: " + frameCount, 15, 30);
+    text("BPM: " + BPM, 15, 45);
   }
 }

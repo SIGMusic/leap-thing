@@ -9,7 +9,7 @@ class NagonObject extends Shape {
   int currentAura;
 
   // Constructor
-  NagonObject(float x, float y, int boundaryHue, float _a, int n, int num, int len) {
+  NagonObject(float x, float y, int boundaryHue, float _a, int n, int num, int len, float v0) {
     numShadows = num;
     shadowLength = len;
     sY = new float[shadowLength];
@@ -21,7 +21,7 @@ class NagonObject extends Shape {
     h = random(50, 100);
     this.a = _a;
     // Add the box to the box2d world
-    makeBody(new Vec2(x, y), w, h, n);
+    makeBody(new Vec2(x, y), w, h, n, v0);
     
     int hue = (int)(boundaryHue + 180 + random(-20,20));
     hue = hue % 360;
@@ -192,7 +192,7 @@ class NagonObject extends Shape {
   
 
   // This function adds the rectangle to the box2d world
-  void makeBody(Vec2 center, float w_, float h_, int n) {
+  void makeBody(Vec2 center, float w_, float h_, int n, float v0) {
 
     // Define a polygon (this is what we use for a rectangle)
     PolygonShape sd = new PolygonShape();
@@ -224,7 +224,7 @@ class NagonObject extends Shape {
     body.createFixture(fd);
 
     // Give it some initial random velocity
-    body.setLinearVelocity(new Vec2(random(-5, 5), random(2, 5)));
+    body.setLinearVelocity(new Vec2(random(2, 5), 10*v0));
     body.setAngularVelocity(random(-5, 5));
   }
   

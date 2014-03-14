@@ -116,19 +116,19 @@ void draw() {
     pulseBackground();
     game(); //game stuff
 
-    //Add Shapes Without PureData
-    if (random(1) < 0.02) {
-      Shape s;
-      if(boundaries.size() > 0)
-      {
-      s = new NagonObject(width/2 + random(-100, 100), height+10, boundaries.get(boundaries.size() - 1).getHue(), random(0, 180), int(random(5))+3, numShadows, shadowLength);
-      }
-      else{
-        s = new NagonObject(width/2 + random(-100, 100), height+10, color(0, 0, 255), random(0, 180), int(random(5))+3, numShadows, shadowLength);
-      
-      }
-      shapes.add(s);
-    }
+//    //Add Shapes Without PureData
+//    if (random(1) < 0.02) {
+//      Shape s;
+//      if(boundaries.size() > 0)
+//      {
+//      s = new NagonObject(width/2 + random(-100, 100), height+10, boundaries.get(boundaries.size() - 1).getHue(), random(0, 180), int(random(5))+3, numShadows, shadowLength);
+//      }
+//      else{
+//        s = new NagonObject(width/2 + random(-100, 100), height+10, color(0, 0, 255), random(0, 180), int(random(5))+3, numShadows, shadowLength);
+//      
+//      }
+//      shapes.add(s);
+//    }
     if (boundaries.size() ==0){
       avg_hue = 240;
     }
@@ -349,7 +349,7 @@ void leapOnConnect(){
   println("Leap Motion Connect");
 }
 void leapOnFrame(){
-  println("Leap Motion Frame");
+  //println("Leap Motion Frame");
 }
 void leapOnDisconnect(){
   println("Leap Motion Disconnect");
