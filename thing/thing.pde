@@ -112,7 +112,7 @@ void draw() {
     setBackground();
     //background(360, 0, 100);
     image(img,0,0);
-    fill((cur_bkgrnd_hue)%360, BACKGROUND_SATURATION, BACKGROUND_BRIGHTNESS, 200);
+    fill((cur_bkgrnd_hue)%360, BACKGROUND_SATURATION, BACKGROUND_BRIGHTNESS, 250);
     noStroke();
     rect(-5, -5, width *4, height *4);
     

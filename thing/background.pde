@@ -28,7 +28,6 @@ void setBackground() {
   }
   while(cur_bkgrnd_hue < 0) cur_bkgrnd_hue += 360;
   background((cur_bkgrnd_hue)%360, BACKGROUND_SATURATION, BACKGROUND_BRIGHTNESS, 0);
-  //tint((cur_bkgrnd_hue)%360, BACKGROUND_SATURATION, BACKGROUND_BRIGHTNESS);
 }
 
 void pulseBackground()  //for the boundary+shape contact background pulse
