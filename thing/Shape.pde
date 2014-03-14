@@ -1,7 +1,7 @@
 int shapeCounter = 0;
 float forceMag = 1.0;
 float max_force = 150.0;
-float force_scale = 1.0;
+float force_scale = 10.0;
 float field_size = 1000.0;
 
 abstract class Shape {
