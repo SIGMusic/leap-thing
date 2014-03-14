@@ -27,6 +27,12 @@ class Boundary {
     h = 25;
     id = id_;
 
+    for(int z = 0; z < shadowLength; z ++)
+    {
+      this.sX[z] = -100; 
+      this.sY[z] = -100;  
+      this.sAng[z] = 0;
+    }
     // Define the polygon
     PolygonShape sd = new PolygonShape();
     // Figure out the box2d coordinates
