@@ -18,7 +18,7 @@ abstract class Shape {
   int[] sHue;
   int numShadows;
   int[] validShadows;
-  final float restitution = 0;
+  final float restitution = 1.25;
   
   abstract void display();
   abstract void displayShadow();
