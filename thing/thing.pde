@@ -220,9 +220,9 @@ void draw() {
         }
       }
 
-      if (debugFlag) debug.draw();
     }
 
+    if (debugFlag) debug.draw();
 
     if (keyPressed) {
       if (key == 'a' || key == 'A') {
