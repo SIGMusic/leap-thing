@@ -278,12 +278,12 @@ void draw() {
       {
         for (Boundary boundary : boundaries) {
           if  (boundary.getId() == hand_id) {
-            boundary.move(hand_position.x, hand_position.y+280, angle); 
+            boundary.move(hand_position.x, hand_position.y+80, angle); 
             created = true;
           }
         }
         if (!created) {
-          boundaries.add(new Boundary(hand_position.x, hand_position.y+280, angle, hand_id));
+          boundaries.add(new Boundary(hand_position.x, hand_position.y+80, angle, hand_id));
         }
       }
 
@@ -294,7 +294,7 @@ void draw() {
       for (Finger finger : fingers) {
 
         // Basics
-        finger.getPosition().z +=280;
+        finger.getPosition().z +=80;
         finger.draw();
         int     finger_id         = finger.getId();
         PVector finger_position   = finger.getPosition();
