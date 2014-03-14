@@ -158,7 +158,21 @@ void draw() {
     for (Shape b : shapes) {
       b.display();
     }
-
+    
+    for (Shape b : shapes) {
+      if (random(1) < 0.5) {
+        if(b.getSaturation() > 80){
+          b.setSaturation(b.getSaturation()-1); 
+        }
+      }
+      else
+      {
+        if(b.getBrightness() > 90){
+          b.setBrightness(b.getBrightness()-1); 
+        }
+      }
+    }
+    
     // Delete shapes that leave the screen
     for (int i = shapes.size()-1; i >= 0; i--) {
       Shape b = shapes.get(i);

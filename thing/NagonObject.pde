@@ -25,7 +25,10 @@ class NagonObject extends Shape {
     
     int hue = (int)(boundaryHue + 180 + random(-20,20));
     hue = hue % 360;
-    c = color(hue, 100, 70);
+    int saturation = 100;
+    int brightness = 70;
+    
+    c = color(hue, saturation, brightness);
     
     currentAura = 0;
     for(int z = 0; z < shadowLength; z ++)
@@ -36,6 +39,8 @@ class NagonObject extends Shape {
     }
    
     this.hue = hue;
+    this.saturation = saturation;
+    this.brightness = brightness;
     this.id = shapeCounter ++;
     this.sides = n;
     
@@ -76,7 +81,7 @@ class NagonObject extends Shape {
     pushMatrix();
     translate(this.sX[t], this.sY[t]);
     rotate(-this.sAng[t]);
-    fill(this.c, 100);
+    fill(color(this.hue, this.saturation, 70), 100);
     stroke(0, 0);
     beginShape();
     //println(vertices.length);
@@ -105,7 +110,7 @@ class NagonObject extends Shape {
     pushMatrix();
     translate(pos.x, pos.y);
     rotate(-a);
-    fill(this.c);
+    fill(color(this.hue, this.saturation, 70));
     stroke((hue + 20)%360, 100, 100);
     beginShape();
     //println(vertices.length);
@@ -226,6 +231,22 @@ class NagonObject extends Shape {
   int getHue(){
      return this.hue; 
   }
+  
+  int getSaturation(){
+     return this.saturation; 
+  }
+     
+  void setSaturation(int sat){
+    this.saturation = sat; 
+  }
+
+  int getBrightness(){
+     return this.brightness; 
+  }
+     
+  void setBrightness(int bri){
+    this.brightness = bri; 
+  }  
   
   int getId(){
      return this.id; 

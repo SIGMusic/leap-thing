@@ -91,6 +91,8 @@ void addFixture(OscMessage msg, Fixture f) {
     for (Shape shape : shapes) {
       if (shape.hasBody(b)) {
         msg.add(shape.getId());
+        shape.setSaturation(100);
+        shape.setBrightness(100);
         // ...
       }
     }

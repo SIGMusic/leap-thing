@@ -15,7 +15,10 @@ class Circle extends Shape {
     makeBody(new Vec2(x, y));
     int hue = (int)(boundaryHue + 180 + random(-20,20));
     hue = hue % 360;
-    c = color(hue, 100, 70);
+    int saturation = 100;
+    int brightness = 70;
+    
+    c = color(hue, saturation, brightness);
     
         currentAura = 0;
     for(int z = 0; z < shadowLength; z ++)
@@ -24,6 +27,8 @@ class Circle extends Shape {
       this.sY[z] = -100;
     }
     
+    this.saturation = saturation;
+    this.brightness = brightness;
     this.hue = hue;
     this.id = shapeCounter ++;
     
@@ -176,6 +181,22 @@ class Circle extends Shape {
   int getHue(){
      return this.hue; 
   }
+  
+  int getSaturation(){
+     return this.saturation; 
+  }
+   
+  void setSaturation(int sat){
+    this.saturation = sat; 
+  }
+  
+  int getBrightness(){
+     return this.brightness; 
+  }
+     
+  void setBrightness(int bri){
+    this.brightness = bri; 
+  }  
   
   int getId(){
      return this.id; 
