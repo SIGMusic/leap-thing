@@ -12,6 +12,12 @@ import de.voidplus.leapmotion.*;
 float hand_pitch_Noleap = 0;
 boolean mouseMode = false;
 
+//Magnetism mode
+//Enter magnetism mode with f
+//Exit magnetism mode with g
+boolean suchMagnetism = false;
+
+
 LeapMotion leap;
 
 PBox2D box2d;
@@ -143,12 +149,13 @@ void draw() {
     }
     
     // give all of the existing shapes gravity
-    for (Shape s : shapes) {
-      for (Boundary b : boundaries)
-      { 
-        s.applyBoundaryField(b);
-      }  
-    }
+    if(suchMagnetism)
+      for (Shape s : shapes) {
+        for (Boundary b : boundaries)
+        { 
+          s.applyBoundaryField(b);
+        }  
+      }
 
     // Display all shapes and shadows
     for (Shape b : shapes) {
@@ -161,13 +168,13 @@ void draw() {
     
     for (Shape b : shapes) {
       if (random(1) < 0.5) {
-        if(b.getSaturation() > 30){
+        if(b.getSaturation() > 60){
           b.setSaturation(b.getSaturation()-1); 
         }
       }
       else
       {
-        if(b.getBrightness() > 30){
+        if(b.getBrightness() > 60){
           b.setBrightness(b.getBrightness()-1); 
         }
       }
@@ -228,6 +235,8 @@ void draw() {
       }
       if (key == '-' || key == '_') shadowLength --;
       if (key == '=' || key == '+') shadowLength ++;
+      if (key == 'g' || key == 'G') suchMagnetism = false;
+      if (key == 'f' || key == 'F') suchMagnetism = true;
       if (key == 'm' || key == 'M' && !mouseMode)
       {
         mouseMode = true;
