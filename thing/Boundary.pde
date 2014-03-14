@@ -13,7 +13,9 @@ class Boundary {
   float[] sY = new float[shadowLength];
   float[] sX = new float[shadowLength];
   float[] sAng = new float[shadowLength];
-  int[] sColor = new int[shadowLength];
+  int[] sHue = new int[shadowLength];
+  int saturation = 100;
+  int brightness = 100;
   int currentAura = 0;
 
   // But we also have to make a body for box2d to know about it
@@ -68,7 +70,7 @@ class Boundary {
     {
         Vec2 pos = box2d.getBodyPixelCoord(b);
 
-    fill(this.sColor[t], 100);
+    fill(color(this.sHue[t], this.saturation, this.brightness), 100);
     stroke(0, 0);
     rectMode(CENTER);
 
@@ -81,8 +83,8 @@ class Boundary {
     
     Vec2 pos = box2d.getBodyPixelCoord(b);
 
-    fill(this.getColor());
-    stroke((this.getHue() + 20)%360, 100, 100);
+    fill(color(this.getHue(), this.saturation, this.brightness));
+    stroke(color(this.getHue(), this.saturation, this.brightness));
     rectMode(CENTER);
 
     pushMatrix();
@@ -113,7 +115,23 @@ class Boundary {
   float getAngle() {
     return this.b.getAngle();
   }
+  
+  int getSaturation(){
+     return this.saturation; 
+  }
+     
+  void setSaturation(int sat){
+    this.saturation = sat; 
+  }
 
+  int getBrightness(){
+     return this.brightness; 
+  }
+     
+  void setBrightness(int bri){
+    this.brightness = bri; 
+  }
+  
   void move(float x_, float y_, float angle) {
     this.b.setTransform(box2d.coordPixelsToWorld(x_, y_), angle);
     
@@ -122,7 +140,7 @@ class Boundary {
     this.sX[currentAura] = x_;
     this.sY[currentAura] = y_;
     this.sAng[currentAura] = angle;
-    this.sColor[currentAura] = this.getColor();
+    this.sHue[currentAura] = this.getHue();
   }
 
   void move(float x_, float y_) {

@@ -92,7 +92,8 @@ void beginContact(Contact contact) {
   {
     if (contact.getFixtureA() ==  a.b.getFixtureList() || contact.getFixtureB() ==  a.b.getFixtureList())  //if one of the fixtures is the boundary
     {
-
+      a.setSaturation(100);
+      a.setBrightness(100);
       savedTime = millis();  //used for timing, switch back to original dhue
       dhue = 1;     
       if (avg_hue - cur_bkgrnd_hue < 0)  //the value of dhue is how fast color will change, the different signs are just for effect; too lazy to actually figure out why it does stuff cool
@@ -192,6 +193,17 @@ void draw() {
     // Display hands
     for (Boundary boundary : boundaries) {
       boundary.display();
+      if (random(1) < 0.5) {
+        if(boundary.getSaturation() > 60){
+          boundary.setSaturation(boundary.getSaturation()-1); 
+        }
+      }
+      else
+      {
+        if(boundary.getBrightness() > 60){
+          boundary.setBrightness(boundary.getBrightness()-1); 
+        }
+      }
     }
 
     // Delete hands that leave the simulation
@@ -326,7 +338,7 @@ void draw() {
         PVector p1 = fingers.get(0).getPosition();
         PVector p2 = fingers.get(fingers.size() - 1).getPosition();
 
-        forceMag = PVector.dist(p1, p2) / (width / 6.0);
+        forceMag = PVector.dist(p1, p2) / (width / 2.0);
       }
     }
   }
