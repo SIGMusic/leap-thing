@@ -42,6 +42,7 @@ final PFont f = createFont("Arial",32,true);
 int numShadows=2;
 int shadowLength=10;
 
+PImage img;
 
 boolean sketchFullScreen() {
   return FULLSCREEN;
@@ -57,6 +58,7 @@ void setup() {
   {
     size(800, 600, P3D);
   }
+  img = loadImage("xxx.jpg");
   //background(360, 0, 100);
   
   savedTime = millis();
@@ -108,6 +110,11 @@ void beginContact(Contact contact) {
 void draw() {
   synchronized (shapes) {
     setBackground();
+    //background(360, 0, 100);
+    image(img,0,0);
+    fill((cur_bkgrnd_hue)%360, BACKGROUND_SATURATION, BACKGROUND_BRIGHTNESS, 250);
+    noStroke();
+    rect(-5, -5, width *4, height *4);
     
     pulseBackground();
     game(); //game stuff
@@ -204,8 +211,10 @@ void draw() {
           boundaries.remove(i);
         }
       }
+
+      if (debugFlag) debug.draw();
     }
-    if (debugFlag) debug.draw();
+
 
     if (keyPressed) {
       if (key == 'a' || key == 'A') {
@@ -273,12 +282,12 @@ void draw() {
       {
         for (Boundary boundary : boundaries) {
           if  (boundary.getId() == hand_id) {
-            boundary.move(hand_position.x, hand_position.y+80, angle); 
+            boundary.move(hand_position.x, hand_position.y+280, angle); 
             created = true;
           }
         }
         if (!created) {
-          boundaries.add(new Boundary(hand_position.x, hand_position.y+80, angle, hand_id));
+          boundaries.add(new Boundary(hand_position.x, hand_position.y+280, angle, hand_id));
         }
       }
 
@@ -289,7 +298,7 @@ void draw() {
       for (Finger finger : fingers) {
 
         // Basics
-        finger.getPosition().z +=80;
+        finger.getPosition().z +=280;
         finger.draw();
         int     finger_id         = finger.getId();
         PVector finger_position   = finger.getPosition();
