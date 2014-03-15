@@ -104,7 +104,7 @@ void addFixture(OscMessage msg, Fixture f) {
 void oscEvent(OscMessage msg) {
   synchronized (this) {
     try {
-      if (!(frameRate > 58.0) && (frameRate < 50.0 || random(1) > 1 / 5.0))
+      if (!(frameRate > 58.0 && shapes.size() < 10) && (frameRate < 50.0 || random(1) > 1 / 5.0))
         return;
       int channel = msg.get(0).intValue();
       int midi = msg.get(1).intValue();
@@ -113,10 +113,11 @@ void oscEvent(OscMessage msg) {
       BPM = max(50.0, bpm);
       if (midi != 0) {
         Shape s;
+        float width_height = max(40, min(4 * (80 - midi), 100));
         if (boundaries.size() > 0)
-          s = new NagonObject(random(0, width), height+5, boundaries.get(boundaries.size() - 1).getHue(), random(0, 180), int(random(5))+3, numShadows, shadowLength, BPM / 14.0);
+          s = new NagonObject(width_height,width_height,random(0, width), height+5, boundaries.get(boundaries.size() - 1).getHue(), random(0, 180), int(random(5))+3, numShadows, shadowLength, BPM / 14.0);
         else
-          s = new NagonObject(random(0, width), height+5, color(0, 0, 255), random(0, 180), int(random(5))+3, numShadows, shadowLength, BPM / 14.0);
+          s = new NagonObject(width_height,width_height,random(0, width), height+5, color(0, 0, 255), random(0, 180), int(random(5))+3, numShadows, shadowLength, BPM / 14.0);
 
         synchronized (shapes) {
           shapes.add(s);
@@ -127,5 +128,6 @@ void oscEvent(OscMessage msg) {
       // don't worry about it
     }
   }
+  println(msg);
 }
 

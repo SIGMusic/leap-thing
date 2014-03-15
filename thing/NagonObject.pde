@@ -9,7 +9,7 @@ class NagonObject extends Shape {
   int currentAura;
 
   // Constructor
-  NagonObject(float x, float y, int boundaryHue, float _a, int n, int num, int len, float v0) {
+  NagonObject(float w, float h, float x, float y, int boundaryHue, float _a, int n, int num, int len, float v0) {
     numShadows = num;
     shadowLength = len;
     sY = new float[shadowLength];
@@ -17,8 +17,8 @@ class NagonObject extends Shape {
     sAng = new float[shadowLength];
     sHue = new int[shadowLength];
     validShadows = new int[numShadows];
-    w = random(50, 100);
-    h = random(50, 100);
+    this.w = w;
+    this.h = h;
     this.a = _a;
     // Add the box to the box2d world
     makeBody(new Vec2(x, y), w, h, n, v0);
