@@ -102,32 +102,30 @@ void addFixture(OscMessage msg, Fixture f) {
 }
 
 void oscEvent(OscMessage msg) {
-  try {
-    if (frameRate < 50.0)
-      return;
-    if (random(1) > 1 / 5.0)
-      return;
-    int channel = msg.get(0).intValue();
-    int midi = msg.get(1).intValue();
-    int velocity = msg.get(2).intValue();
-    float bpm = msg.get(3).floatValue();
-    BPM = max(50.0, bpm);
-    if (midi != 0) {
-      Shape s;
-      if (boundaries.size() > 0)
-        s = new NagonObject(random(0, width), height+5, boundaries.get(boundaries.size() - 1).getHue(), random(0, 180), int(random(5))+3, numShadows, shadowLength, BPM / 14.0);
-      else
-        s = new NagonObject(random(0, width), height+5, color(0, 0, 255), random(0, 180), int(random(5))+3, numShadows, shadowLength, BPM / 14.0);
-        
-      synchronized (shapes) {
-        shapes.add(s);
+  synchronized (this) {
+    try {
+      if (!(frameRate > 58.0) && (frameRate < 50.0 || random(1) > 1 / 5.0))
+        return;
+      int channel = msg.get(0).intValue();
+      int midi = msg.get(1).intValue();
+      int velocity = msg.get(2).intValue();
+      float bpm = msg.get(3).floatValue();
+      BPM = max(50.0, bpm);
+      if (midi != 0) {
+        Shape s;
+        if (boundaries.size() > 0)
+          s = new NagonObject(random(0, width), height+5, boundaries.get(boundaries.size() - 1).getHue(), random(0, 180), int(random(5))+3, numShadows, shadowLength, BPM / 14.0);
+        else
+          s = new NagonObject(random(0, width), height+5, color(0, 0, 255), random(0, 180), int(random(5))+3, numShadows, shadowLength, BPM / 14.0);
+
+        synchronized (shapes) {
+          shapes.add(s);
+        }
       }
+    } 
+    catch (Exception e) {
+      // don't worry about it
     }
-    println(msg);
-    println("### received OscMessage with pattern " + msg.addrPattern());
-  } 
-  catch (Exception e) {
-    // don't worry about it
   }
 }
 
